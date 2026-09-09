@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Header from "./components/Header";
 
 import {
   Search,
@@ -59,117 +60,9 @@ export default function Home() {
 
       {/* ================= HEADER ================= */}
 
-      <header className="header">
-        <div className="header-container">
+     {/* ================= HEADER ================= */}
 
-          {/* LOGO */}
-          <div className="logo">
-            <img src="/logo.png" alt="Fresh Produce Direct" />
-          </div>
-
-          {/* DESKTOP NAVIGATION */}
-          <nav className="navigation">
-            <a className="active" href="#">Home</a>
-            <a href="#boxes">Our Boxes</a>
-            <a href="#shop">Shop</a>
-            <a href="#about">About Us</a>
-            <a href="#growers">Our Growers</a>
-            <a href="#delivery">Delivery</a>
-            <a href="#contact">Contact</a>
-          </nav>
-
-          {/* HEADER ICONS */}
-          <div className="header-icons">
-
-            <button aria-label="Search">
-              <Search size={25} strokeWidth={1.8} />
-            </button>
-
-            <button className="account-btn" aria-label="Account">
-              <UserRound size={25} strokeWidth={1.8} />
-              <span>Sign In</span>
-            </button>
-
-            <button className="cart-btn" aria-label="Cart">
-              <ShoppingCart size={27} strokeWidth={1.8} />
-              <span className="cart-number">0</span>
-            </button>
-
-            {/* MOBILE MENU BUTTON */}
-            <button
-              className="mobile-menu-btn"
-              onClick={() => setMenuOpen(!menuOpen)}
-              aria-label="Open menu"
-            >
-              {menuOpen ? (
-                <X size={28} strokeWidth={2} />
-              ) : (
-                <Menu size={30} strokeWidth={2} />
-              )}
-            </button>
-
-          </div>
-
-        </div>
-
-        {/* ================= MOBILE MENU ================= */}
-
-        <nav className={`mobile-navigation ${menuOpen ? "show" : ""}`}>
-
-          <a
-            className="active"
-            href="#"
-            onClick={() => setMenuOpen(false)}
-          >
-            Home
-          </a>
-
-          <a
-            href="#boxes"
-            onClick={() => setMenuOpen(false)}
-          >
-            Our Boxes
-          </a>
-
-          <a
-            href="#shop"
-            onClick={() => setMenuOpen(false)}
-          >
-            Shop
-          </a>
-
-          <a
-            href="#about"
-            onClick={() => setMenuOpen(false)}
-          >
-            About Us
-          </a>
-
-          <a
-            href="#growers"
-            onClick={() => setMenuOpen(false)}
-          >
-            Our Growers
-          </a>
-
-          <a
-            href="#delivery"
-            onClick={() => setMenuOpen(false)}
-          >
-            Delivery
-          </a>
-
-          <a
-            href="#contact"
-            onClick={() => setMenuOpen(false)}
-          >
-            Contact
-          </a>
-
-        </nav>
-
-      </header>
-
+<Header />
 
       {/* ================= HERO ================= */}
 
