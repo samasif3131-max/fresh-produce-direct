@@ -267,27 +267,6 @@
   .block {
     display: block;
   }
-
-  .flex {
-    display: flex;
-  }
-
-  .h-full {
-    height: 100%;
-  }
-
-  .min-h-full {
-    min-height: 100%;
-  }
-
-  .flex-col {
-    flex-direction: column;
-  }
-
-  .antialiased {
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
 }
 
 * {

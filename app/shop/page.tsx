@@ -4,7 +4,9 @@ import { useState } from "react";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+
 import { useCart } from "../../context/CartContext";
+import { useWishlist } from "../../context/WishlistContext";
 
 import {
   MapPin,
@@ -179,31 +181,45 @@ const filterCategories = [
 export default function ShopPage() {
 
   /* CART */
+
   const { addToCart } = useCart();
 
+
+  /* WISHLIST */
+
+  const {
+    addToWishlist,
+    removeFromWishlist,
+    isInWishlist,
+  } = useWishlist();
+
+
   /* CATEGORY */
+
   const [activeCategory, setActiveCategory] =
     useState("All Products");
 
-  /* SEARCH */
-  const [search, setSearch] = useState("");
 
-  /* WISHLIST */
-  const [wishlist, setWishlist] =
-    useState<string[]>([]);
+  /* SEARCH */
+
+  const [search, setSearch] = useState("");
 
 
   /* =========================================
      WISHLIST FUNCTION
   ========================================= */
 
-  const toggleWishlist = (name: string) => {
+  const handleWishlist = (product: typeof products[0]) => {
 
-    setWishlist((current) =>
-      current.includes(name)
-        ? current.filter((item) => item !== name)
-        : [...current, name]
-    );
+    if (isInWishlist(product.name)) {
+
+      removeFromWishlist(product.name);
+
+    } else {
+
+      addToWishlist(product);
+
+    }
 
   };
 
@@ -235,9 +251,7 @@ export default function ShopPage() {
       <Header />
 
 
-      {/* =========================================
-         HERO SECTION
-      ========================================= */}
+      {/* HERO SECTION */}
 
       <section className={styles.shopHero}>
 
@@ -273,9 +287,7 @@ export default function ShopPage() {
       </section>
 
 
-      {/* =========================================
-         FEATURE BADGES
-      ========================================= */}
+      {/* FEATURE BADGES */}
 
       <section className={styles.featuresSection}>
 
@@ -306,9 +318,7 @@ export default function ShopPage() {
       </section>
 
 
-      {/* =========================================
-         CATEGORY BAR
-      ========================================= */}
+      {/* CATEGORY BAR */}
 
       <section className={styles.categorySection}>
 
@@ -349,9 +359,7 @@ export default function ShopPage() {
       </section>
 
 
-      {/* =========================================
-         MAIN SHOP AREA
-      ========================================= */}
+      {/* MAIN SHOP AREA */}
 
       <section className={styles.shopSection}>
 
@@ -380,6 +388,7 @@ export default function ShopPage() {
                 >
 
                   <span>
+
                     <input
                       type="checkbox"
                       checked={activeCategory === name}
@@ -494,9 +503,7 @@ export default function ShopPage() {
           </aside>
 
 
-          {/* =====================================
-             PRODUCTS AREA
-          ===================================== */}
+          {/* PRODUCTS AREA */}
 
           <div className={styles.productsArea}>
 
@@ -556,76 +563,90 @@ export default function ShopPage() {
 
             <div className={styles.productsGrid}>
 
-              {filteredProducts.map((product) => (
+              {filteredProducts.map((product) => {
 
-                <article
-                  key={product.name}
-                  className={styles.productCard}
-                >
+                const productInWishlist =
+                  isInWishlist(product.name);
 
-                  <div className={styles.productImage}>
+                return (
 
-                    <img
-                      src={product.image}
-                      alt={product.name}
-                    />
+                  <article
+                    key={product.name}
+                    className={styles.productCard}
+                  >
 
+                    <div className={styles.productImage}>
 
-                    {/* WISHLIST */}
-
-                    <button
-                      className={`${styles.wishlistButton} ${
-                        wishlist.includes(product.name)
-                          ? styles.wishlistActive
-                          : ""
-                      }`}
-                      onClick={() =>
-                        toggleWishlist(product.name)
-                      }
-                      aria-label={`Add ${product.name} to wishlist`}
-                    >
-
-                      <Heart size={19} />
-
-                    </button>
-
-                  </div>
+                      <img
+                        src={product.image}
+                        alt={product.name}
+                      />
 
 
-                  <div className={styles.productContent}>
-
-                    <h3>{product.name}</h3>
-
-                    <p className={styles.productOrigin}>
-                      {product.origin}
-                    </p>
-
-                    <span className={styles.productUnit}>
-                      {product.unit}
-                    </span>
-
-
-                    <div className={styles.productFooter}>
-
-                      <strong>{product.price}</strong>
-
-
-                      {/* ADD TO CART */}
+                      {/* WISHLIST BUTTON */}
 
                       <button
-                        onClick={() => addToCart(product)}
+                        className={`${styles.wishlistButton} ${
+                          productInWishlist
+                            ? styles.wishlistActive
+                            : ""
+                        }`}
+                        onClick={() =>
+                          handleWishlist(product)
+                        }
+                        aria-label={`Add ${product.name} to wishlist`}
                       >
-                        <ShoppingBasket size={16} />
-                        Add to Basket
+
+                        <Heart
+                          size={19}
+                          fill={
+                            productInWishlist
+                              ? "currentColor"
+                              : "none"
+                          }
+                        />
+
                       </button>
 
                     </div>
 
-                  </div>
 
-                </article>
+                    <div className={styles.productContent}>
 
-              ))}
+                      <h3>{product.name}</h3>
+
+                      <p className={styles.productOrigin}>
+                        {product.origin}
+                      </p>
+
+                      <span className={styles.productUnit}>
+                        {product.unit}
+                      </span>
+
+
+                      <div className={styles.productFooter}>
+
+                        <strong>{product.price}</strong>
+
+
+                        {/* ADD TO CART */}
+
+                        <button
+                          onClick={() => addToCart(product)}
+                        >
+                          <ShoppingBasket size={16} />
+                          Add to Basket
+                        </button>
+
+                      </div>
+
+                    </div>
+
+                  </article>
+
+                );
+
+              })}
 
             </div>
 
@@ -678,9 +699,7 @@ export default function ShopPage() {
       </section>
 
 
-      {/* =========================================
-         MID PAGE PROMO
-      ========================================= */}
+      {/* MID PAGE PROMO */}
 
       <section className={styles.midPromo}>
 

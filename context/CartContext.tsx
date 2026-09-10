@@ -11,15 +11,14 @@ type Product = {
   name: string;
   price: string;
   image: string;
-};
-
-type CartItem = Product & {
   quantity: number;
 };
 
 type CartContextType = {
-  cart: CartItem[];
-  addToCart: (product: Product) => void;
+  cart: Product[];
+  addToCart: (product: Omit<Product, "quantity">) => void;
+  increaseQuantity: (name: string) => void;
+  decreaseQuantity: (name: string) => void;
   removeFromCart: (name: string) => void;
   clearCart: () => void;
 };
@@ -33,9 +32,15 @@ export function CartProvider({
 }: {
   children: ReactNode;
 }) {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<Product[]>([]);
 
-  const addToCart = (product: Product) => {
+  /* ===============================
+     ADD TO CART
+  =============================== */
+
+  const addToCart = (
+    product: Omit<Product, "quantity">
+  ) => {
     setCart((currentCart) => {
       const existingProduct = currentCart.find(
         (item) => item.name === product.name
@@ -62,11 +67,57 @@ export function CartProvider({
     });
   };
 
-  const removeFromCart = (name: string) => {
+  /* ===============================
+     INCREASE QUANTITY
+  =============================== */
+
+  const increaseQuantity = (name: string) => {
     setCart((currentCart) =>
-      currentCart.filter((item) => item.name !== name)
+      currentCart.map((item) =>
+        item.name === name
+          ? {
+              ...item,
+              quantity: item.quantity + 1,
+            }
+          : item
+      )
     );
   };
+
+  /* ===============================
+     DECREASE QUANTITY
+  =============================== */
+
+  const decreaseQuantity = (name: string) => {
+    setCart((currentCart) =>
+      currentCart
+        .map((item) =>
+          item.name === name
+            ? {
+                ...item,
+                quantity: item.quantity - 1,
+              }
+            : item
+        )
+        .filter((item) => item.quantity > 0)
+    );
+  };
+
+  /* ===============================
+     REMOVE PRODUCT
+  =============================== */
+
+  const removeFromCart = (name: string) => {
+    setCart((currentCart) =>
+      currentCart.filter(
+        (item) => item.name !== name
+      )
+    );
+  };
+
+  /* ===============================
+     CLEAR CART
+  =============================== */
 
   const clearCart = () => {
     setCart([]);
@@ -77,6 +128,8 @@ export function CartProvider({
       value={{
         cart,
         addToCart,
+        increaseQuantity,
+        decreaseQuantity,
         removeFromCart,
         clearCart,
       }}
@@ -85,6 +138,11 @@ export function CartProvider({
     </CartContext.Provider>
   );
 }
+
+
+/* ===============================
+   USE CART HOOK
+================================ */
 
 export function useCart() {
   const context = useContext(CartContext);
