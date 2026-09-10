@@ -116,6 +116,26 @@ const WishlistContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$pro
 function WishlistProvider({ children }) {
     _s();
     const [wishlist, setWishlist] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
+    const [loaded, setLoaded] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "WishlistProvider.useEffect": ()=>{
+            const savedWishlist = localStorage.getItem("freshProduceWishlist");
+            if (savedWishlist) {
+                setWishlist(JSON.parse(savedWishlist));
+            }
+            setLoaded(true);
+        }
+    }["WishlistProvider.useEffect"], []);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "WishlistProvider.useEffect": ()=>{
+            if (loaded) {
+                localStorage.setItem("freshProduceWishlist", JSON.stringify(wishlist));
+            }
+        }
+    }["WishlistProvider.useEffect"], [
+        wishlist,
+        loaded
+    ]);
     const addToWishlist = (product)=>{
         setWishlist((current)=>{
             const alreadyExists = current.some((item)=>item.name === product.name);
@@ -144,11 +164,11 @@ function WishlistProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/context/WishlistContext.tsx",
-        lineNumber: 93,
+        lineNumber: 98,
         columnNumber: 5
     }, this);
 }
-_s(WishlistProvider, "bd1ENNmbK9i7jQ4JfB0/gO107W0=");
+_s(WishlistProvider, "LEZX915Xf+32Dj8hNMomuhq3+RI=");
 _c = WishlistProvider;
 function useWishlist() {
     _s1();

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-
+import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 
@@ -206,6 +206,21 @@ export default function ShopPage() {
 
 
   /* =========================================
+     CREATE PRODUCT SLUG
+  ========================================= */
+
+  const createSlug = (name: string) => {
+
+    return name
+      .toLowerCase()
+      .replace(/&/g, "and")
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+
+  };
+
+
+  /* =========================================
      WISHLIST FUNCTION
   ========================================= */
 
@@ -375,6 +390,8 @@ export default function ShopPage() {
               <h2>Filter Products</h2>
             </div>
 
+
+            {/* CATEGORY FILTER */}
 
             <div className={styles.filterGroup}>
 
@@ -568,6 +585,9 @@ export default function ShopPage() {
                 const productInWishlist =
                   isInWishlist(product.name);
 
+                const productSlug =
+                  createSlug(product.name);
+
                 return (
 
                   <article
@@ -575,17 +595,27 @@ export default function ShopPage() {
                     className={styles.productCard}
                   >
 
+
+                    {/* PRODUCT IMAGE CLICKABLE */}
+
                     <div className={styles.productImage}>
 
-                      <img
-                        src={product.image}
-                        alt={product.name}
-                      />
+                      <Link
+                        href={`/product/${productSlug}`}
+                      >
+
+                        <img
+                          src={product.image}
+                          alt={product.name}
+                        />
+
+                      </Link>
 
 
                       {/* WISHLIST BUTTON */}
 
                       <button
+                        type="button"
                         className={`${styles.wishlistButton} ${
                           productInWishlist
                             ? styles.wishlistActive
@@ -611,9 +641,25 @@ export default function ShopPage() {
                     </div>
 
 
+                    {/* PRODUCT CONTENT */}
+
                     <div className={styles.productContent}>
 
-                      <h3>{product.name}</h3>
+
+                      {/* PRODUCT NAME CLICKABLE */}
+
+                      <Link
+                        href={`/product/${productSlug}`}
+                        style={{
+                          textDecoration: "none",
+                          color: "inherit",
+                        }}
+                      >
+
+                        <h3>{product.name}</h3>
+
+                      </Link>
+
 
                       <p className={styles.productOrigin}>
                         {product.origin}
@@ -632,10 +678,16 @@ export default function ShopPage() {
                         {/* ADD TO CART */}
 
                         <button
-                          onClick={() => addToCart(product)}
+                          type="button"
+                          onClick={() =>
+                            addToCart(product)
+                          }
                         >
+
                           <ShoppingBasket size={16} />
+
                           Add to Basket
+
                         </button>
 
                       </div>
@@ -674,19 +726,22 @@ export default function ShopPage() {
 
             <div className={styles.pagination}>
 
-              <button>
+              <button type="button">
                 <ChevronLeft size={19} />
               </button>
 
-              <button className={styles.pageActive}>
+              <button
+                type="button"
+                className={styles.pageActive}
+              >
                 1
               </button>
 
-              <button>2</button>
-              <button>3</button>
-              <button>4</button>
+              <button type="button">2</button>
+              <button type="button">3</button>
+              <button type="button">4</button>
 
-              <button>
+              <button type="button">
                 <ChevronRight size={19} />
               </button>
 
@@ -728,7 +783,7 @@ export default function ShopPage() {
               From our fields to your table.
             </p>
 
-            <button>
+            <button type="button">
               Learn More
               <ArrowRight size={19} />
             </button>
