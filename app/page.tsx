@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Header from "./components/Header";
+import Footer from "./components/Footer";
 
 import {
   Search,
@@ -305,58 +306,13 @@ export default function Home() {
         </div>
 
       </section>
+{/* ================= FOOTER ================= */}
 
+<Footer />
 
       {/* ================= FOOTER ================= */}
 
-      <footer className="footer">
-
-        <div className="footer-container">
-
-          <div className="footer-item">
-            <Truck />
-            <span>
-              Local Delivery
-              <br />
-              To Your Area
-            </span>
-          </div>
-
-          <div className="footer-item">
-            <ShieldCheck />
-            <span>
-              Secure Online
-              <br />
-              Ordering
-            </span>
-          </div>
-
-          <div className="footer-item">
-            <Leaf />
-            <span>
-              Freshness
-              <br />
-              Guaranteed
-            </span>
-          </div>
-
-          <div className="footer-item">
-            <Users />
-            <span>
-              Supporting
-              <br />
-              Local Communities
-            </span>
-          </div>
-
-          <div className="footer-message">
-            <span>Quality Produce.</span>
-            <strong>A Brighter Tomorrow.</strong>
-          </div>
-
-        </div>
-
-      </footer>
+   
 
     </main>
   );

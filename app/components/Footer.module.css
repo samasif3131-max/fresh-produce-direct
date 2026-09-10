@@ -1,0 +1,371 @@
+/* =========================================
+   FOOTER MAIN
+========================================= */
+
+.footer {
+  width: 100%;
+  background: #123d2b;
+  color: #ffffff;
+}
+
+
+/* =========================================
+   FOOTER TOP
+========================================= */
+
+.footerTop {
+  padding: 65px 30px 55px;
+}
+
+.footerContainer {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+
+  display: grid;
+  grid-template-columns: 1.5fr 1fr 1fr 1.3fr;
+  gap: 55px;
+}
+
+
+/* =========================================
+   BRAND
+========================================= */
+
+.footerBrand {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.footerLogo {
+  display: inline-flex;
+  margin-bottom: 20px;
+}
+
+.footerLogo img {
+  width: 165px;
+  height: auto;
+  max-height: 75px;
+  object-fit: contain;
+
+  /* Makes logo visible on dark footer if needed */
+  filter: brightness(0) invert(1);
+}
+
+.footerBrand p {
+  max-width: 310px;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.footerMessage {
+  margin-top: 25px;
+
+  display: flex;
+  flex-direction: column;
+
+  color: #ffffff;
+}
+
+.footerMessage span {
+  font-size: 22px;
+  font-style: italic;
+}
+
+.footerMessage strong {
+  margin-top: 4px;
+
+  color: #a9d18e;
+
+  font-size: 19px;
+}
+
+
+/* =========================================
+   FOOTER COLUMNS
+========================================= */
+
+.footerColumn,
+.footerContact {
+  display: flex;
+  flex-direction: column;
+}
+
+.footerColumn h3,
+.footerContact h3 {
+  margin-bottom: 22px;
+
+  font-size: 18px;
+  font-weight: 600;
+
+  color: #ffffff;
+}
+
+.footerColumn a {
+  width: fit-content;
+
+  margin-bottom: 12px;
+
+  color: rgba(255, 255, 255, 0.75);
+
+  font-size: 14px;
+
+  text-decoration: none;
+
+  transition: 0.25s ease;
+}
+
+.footerColumn a:hover {
+  color: #b7dc9a;
+  transform: translateX(4px);
+}
+
+
+/* =========================================
+   CONTACT
+========================================= */
+
+.footerContact a {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  margin-bottom: 16px;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 14px;
+
+  line-height: 1.5;
+
+  text-decoration: none;
+
+  transition: 0.25s ease;
+}
+
+.footerContact a:hover {
+  color: #b7dc9a;
+}
+
+.footerContact svg,
+.location svg {
+  flex-shrink: 0;
+  color: #a9d18e;
+}
+
+.location {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 10px;
+
+  margin-top: 3px;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+
+/* =========================================
+   FOOTER BENEFITS
+========================================= */
+
+.footerBenefits {
+  background: #0d3022;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.benefitsContainer {
+  width: 100%;
+  max-width: 1280px;
+
+  margin: 0 auto;
+  padding: 25px 30px;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+
+  gap: 25px;
+}
+
+.benefit {
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  color: #ffffff;
+}
+
+.benefit svg {
+  width: 38px;
+  height: 38px;
+
+  flex-shrink: 0;
+
+  color: #a9d18e;
+
+  stroke-width: 1.5;
+}
+
+.benefit span {
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+
+/* =========================================
+   FOOTER BOTTOM
+========================================= */
+
+.footerBottom {
+  background: #092419;
+}
+
+.footerBottomContainer {
+  width: 100%;
+  max-width: 1280px;
+
+  margin: 0 auto;
+  padding: 22px 30px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 25px;
+}
+
+.footerBottom p {
+  color: rgba(255, 255, 255, 0.58);
+
+  font-size: 13px;
+}
+
+.bottomLinks {
+  display: flex;
+  align-items: center;
+
+  gap: 22px;
+}
+
+.bottomLinks a {
+  color: rgba(255, 255, 255, 0.65);
+
+  font-size: 13px;
+
+  text-decoration: none;
+
+  transition: 0.25s ease;
+}
+
+.bottomLinks a:hover {
+  color: #ffffff;
+}
+
+
+/* =========================================
+   TABLET
+========================================= */
+
+@media (max-width: 1000px) {
+
+  .footerContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 45px 35px;
+  }
+
+  .benefitsContainer {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+  .footerTop {
+    padding: 50px 20px 40px;
+  }
+
+  .footerContainer {
+    grid-template-columns: 1fr;
+    gap: 38px;
+  }
+
+  .footerBrand p {
+    max-width: 100%;
+  }
+
+  .footerBenefits {
+    padding: 5px 0;
+  }
+
+  .benefitsContainer {
+    grid-template-columns: 1fr 1fr;
+
+    padding: 25px 20px;
+
+    gap: 25px 15px;
+  }
+
+  .benefit {
+    align-items: flex-start;
+  }
+
+  .benefit svg {
+    width: 32px;
+    height: 32px;
+  }
+
+  .benefit span {
+    font-size: 13px;
+  }
+
+  .footerBottomContainer {
+    padding: 22px 20px;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+}
+
+
+/* =========================================
+   SMALL MOBILE
+========================================= */
+
+@media (max-width: 480px) {
+
+  .footerLogo img {
+    width: 145px;
+  }
+
+  .benefitsContainer {
+    grid-template-columns: 1fr;
+  }
+
+  .bottomLinks {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 10px;
+  }
+
+}

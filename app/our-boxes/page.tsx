@@ -1,5 +1,6 @@
 import Link from "next/link";
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import {
   ArrowRight,
   Check,
@@ -365,7 +366,7 @@ export default function OurBoxesPage() {
         </div>
 
       </section>
-
+<Footer />
     </main>
   );
 }

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+
 import {
   Menu,
   X,
@@ -10,14 +11,22 @@ import {
   ShoppingCart,
 } from "lucide-react";
 
+import { useCart } from "../../context/CartContext";
 import styles from "./Header.module.css";
 
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const { cart } = useCart();
+
   const closeMenu = () => {
     setMenuOpen(false);
   };
+
+  const cartCount = cart.reduce(
+    (total: number, item: any) => total + item.quantity,
+    0
+  );
 
   return (
     <header className={styles.header}>
@@ -76,7 +85,7 @@ export default function Header() {
             <ShoppingCart size={25} strokeWidth={1.8} />
 
             <span className={styles.cartNumber}>
-              0
+              {cartCount}
             </span>
           </Link>
 
@@ -103,6 +112,7 @@ export default function Header() {
           menuOpen ? styles.mobileMenuOpen : ""
         }`}
       >
+
         <Link href="/" onClick={closeMenu}>
           Home
         </Link>
