@@ -240,10 +240,12 @@ export default function CartPage() {
                   </strong>
                 </div>
 
-                <button className={styles.checkoutButton}>
-                  Proceed to Checkout
-                  <ArrowRight size={19} />
-                </button>
+                <Link
+  href="/checkout"
+  className={styles.checkoutButton}
+>
+  Proceed to Checkout
+</Link>
 
                 <div className={styles.summaryNote}>
                   <ShoppingBag size={18} />

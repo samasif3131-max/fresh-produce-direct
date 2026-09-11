@@ -1,0 +1,615 @@
+.loginPage {
+  min-height: 100vh;
+  background: #f8f7f2;
+  color: #18372f;
+}
+
+/* =========================
+   CONTAINER
+========================= */
+
+.container {
+  width: min(1180px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+/* =========================
+   HERO
+========================= */
+
+.loginHero {
+  padding: 90px 0;
+
+  text-align: center;
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      rgba(24, 55, 47, 0.9),
+      rgba(23, 77, 45, 0.92)
+    ),
+    url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1800&q=85");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.heroTag {
+  display: inline-block;
+
+  padding: 8px 15px;
+  margin-bottom: 16px;
+
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 30px;
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.loginHero h1 {
+  margin: 0;
+
+  font-size: clamp(38px, 5vw, 62px);
+  line-height: 1.1;
+}
+
+.loginHero p {
+  max-width: 650px;
+
+  margin: 20px auto 0;
+
+  font-size: 16px;
+  line-height: 1.7;
+
+  color: rgba(255, 255, 255, 0.82);
+}
+
+/* =========================
+   LOGIN SECTION
+========================= */
+
+.loginSection {
+  padding: 80px 0 100px;
+}
+
+/* =========================
+   LOGIN WRAPPER
+========================= */
+
+.loginWrapper {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  min-height: 680px;
+
+  border-radius: 24px;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  box-shadow: 0 20px 60px rgba(24, 55, 47, 0.12);
+}
+
+/* =========================
+   LOGIN CARD
+========================= */
+
+.loginCard {
+  padding: 55px;
+
+  background: #ffffff;
+}
+
+.cardHeader {
+  text-align: center;
+
+  margin-bottom: 35px;
+}
+
+.iconBox {
+  width: 65px;
+  height: 65px;
+
+  margin: 0 auto 18px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background: #eaf3eb;
+
+  color: #174d2d;
+}
+
+.cardHeader h2 {
+  margin: 0;
+
+  font-size: 30px;
+
+  color: #18372f;
+}
+
+.cardHeader p {
+  margin: 10px auto 0;
+
+  max-width: 390px;
+
+  color: #737b76;
+
+  font-size: 14px;
+
+  line-height: 1.7;
+}
+
+/* =========================
+   FORM
+========================= */
+
+.loginForm {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 22px;
+}
+
+.inputGroup {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+}
+
+.inputGroup label {
+  font-size: 14px;
+
+  font-weight: 700;
+
+  color: #18372f;
+}
+
+.inputWrapper {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  height: 54px;
+
+  border: 1px solid #dce4dd;
+
+  border-radius: 10px;
+
+  padding: 0 15px;
+
+  color: #174d2d;
+
+  transition: 0.25s ease;
+}
+
+.inputWrapper:focus-within {
+  border-color: #174d2d;
+
+  box-shadow: 0 0 0 4px rgba(23, 77, 45, 0.08);
+}
+
+.inputWrapper input {
+  width: 100%;
+
+  height: 100%;
+
+  border: none;
+
+  outline: none;
+
+  padding: 0 12px;
+
+  background: transparent;
+
+  color: #18372f;
+
+  font-size: 14px;
+}
+
+.inputWrapper input::placeholder {
+  color: #9aa39d;
+}
+
+.passwordLabel {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 15px;
+}
+
+.passwordLabel a {
+  color: #174d2d;
+
+  text-decoration: none;
+
+  font-size: 13px;
+
+  font-weight: 700;
+}
+
+.passwordLabel a:hover {
+  text-decoration: underline;
+}
+
+.eyeButton {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border: none;
+
+  background: transparent;
+
+  color: #6d7771;
+
+  cursor: pointer;
+
+  padding: 5px;
+}
+
+/* =========================
+   REMEMBER ME
+========================= */
+
+.rememberMe {
+  display: flex;
+
+  align-items: center;
+
+  gap: 9px;
+
+  cursor: pointer;
+
+  color: #657069;
+
+  font-size: 14px;
+}
+
+.rememberMe input {
+  width: 16px;
+  height: 16px;
+
+  accent-color: #174d2d;
+}
+
+/* =========================
+   LOGIN BUTTON
+========================= */
+
+.loginButton {
+  width: 100%;
+
+  height: 56px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #174d2d;
+
+  color: #ffffff;
+
+  font-size: 15px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  transition: 0.3s ease;
+}
+
+.loginButton:hover {
+  background: #245b37;
+
+  transform: translateY(-2px);
+
+  box-shadow: 0 10px 25px rgba(23, 77, 45, 0.2);
+}
+
+/* =========================
+   DIVIDER
+========================= */
+
+.divider {
+  position: relative;
+
+  text-align: center;
+
+  margin: 30px 0;
+}
+
+.divider::before {
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  top: 50%;
+
+  width: 100%;
+  height: 1px;
+
+  background: #e2e7e3;
+}
+
+.divider span {
+  position: relative;
+
+  z-index: 1;
+
+  padding: 0 15px;
+
+  background: #ffffff;
+
+  color: #9aa39d;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+/* =========================
+   REGISTER
+========================= */
+
+.registerBox {
+  text-align: center;
+}
+
+.registerBox h3 {
+  margin: 0 0 8px;
+
+  font-size: 18px;
+
+  color: #18372f;
+}
+
+.registerBox p {
+  margin: 0 auto 20px;
+
+  max-width: 400px;
+
+  color: #747d77;
+
+  font-size: 13px;
+
+  line-height: 1.7;
+}
+
+.registerButton {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 100%;
+
+  padding: 15px;
+
+  border: 1px solid #174d2d;
+
+  border-radius: 10px;
+
+  text-decoration: none;
+
+  color: #174d2d;
+
+  font-size: 14px;
+
+  font-weight: 800;
+
+  transition: 0.3s ease;
+}
+
+.registerButton:hover {
+  background: #174d2d;
+
+  color: #ffffff;
+}
+
+/* =========================
+   RIGHT SIDE
+========================= */
+
+.sideContent {
+  position: relative;
+
+  padding: 70px 60px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  color: #ffffff;
+
+  background:
+    linear-gradient(
+      rgba(24, 55, 47, 0.88),
+      rgba(24, 55, 47, 0.94)
+    ),
+    url("https://images.unsplash.com/photo-1488459716781-31db52582fe9?auto=format&fit=crop&w=1200&q=85");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.sideTag {
+  display: inline-block;
+
+  margin-bottom: 20px;
+
+  color: #c9dfcb;
+
+  font-size: 11px;
+
+  font-weight: 800;
+
+  letter-spacing: 2px;
+}
+
+.sideContent h2 {
+  margin: 0;
+
+  font-size: clamp(38px, 4vw, 55px);
+
+  line-height: 1.08;
+}
+
+.sideContent > p {
+  margin: 25px 0 35px;
+
+  max-width: 440px;
+
+  color: rgba(255, 255, 255, 0.8);
+
+  font-size: 16px;
+
+  line-height: 1.8;
+}
+
+/* =========================
+   BENEFITS
+========================= */
+
+.benefits {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 17px;
+}
+
+.benefits div {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  font-size: 15px;
+
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.benefits span {
+  width: 25px;
+  height: 25px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: rgba(255, 255, 255, 0.15);
+
+  color: #d9f0da;
+
+  font-weight: 800;
+}
+
+/* =========================
+   TABLET
+========================= */
+
+@media (max-width: 900px) {
+  .loginWrapper {
+    grid-template-columns: 1fr;
+  }
+
+  .sideContent {
+    min-height: 450px;
+
+    padding: 60px 45px;
+  }
+
+  .loginCard {
+    padding: 50px 40px;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+  .container {
+    width: min(100% - 28px, 1180px);
+  }
+
+  .loginHero {
+    padding: 65px 0;
+  }
+
+  .loginHero h1 {
+    font-size: 38px;
+  }
+
+  .loginHero p {
+    font-size: 14px;
+  }
+
+  .loginSection {
+    padding: 45px 0 65px;
+  }
+
+  .loginCard {
+    padding: 35px 22px;
+  }
+
+  .cardHeader h2 {
+    font-size: 26px;
+  }
+
+  .passwordLabel {
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 5px;
+  }
+
+  .sideContent {
+    min-height: auto;
+
+    padding: 50px 25px;
+  }
+
+  .sideContent h2 {
+    font-size: 38px;
+  }
+
+  .sideContent > p {
+    font-size: 14px;
+  }
+
+  .benefits div {
+    font-size: 14px;
+  }
+}
