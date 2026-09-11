@@ -280,6 +280,10 @@
     display: flex;
   }
 
+  .table {
+    display: table;
+  }
+
   .grow {
     flex-grow: 1;
   }

@@ -50,8 +50,7 @@ export default function Header() {
           <Link href="/our-boxes">Our Boxes</Link>
           <Link href="/shop">Shop</Link>
           <Link href="/about">About Us</Link>
-          <Link href="/our-growers">Our Growers</Link>
-          <Link href="/delivery">Delivery</Link>
+<Link href="/growers">Our Growers</Link>          <Link href="/delivery">Delivery</Link>
           <Link href="/contact">Contact</Link>
         </nav>
 

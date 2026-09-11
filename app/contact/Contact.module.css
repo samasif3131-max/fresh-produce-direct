@@ -1,0 +1,650 @@
+.contactPage {
+  width: 100%;
+  overflow-x: hidden;
+  background: #ffffff;
+  color: #18372f;
+}
+
+.container {
+  width: min(1200px, calc(100% - 40px));
+  margin: 0 auto;
+}
+
+/* ================= HERO ================= */
+
+.hero {
+  position: relative;
+  min-height: 650px;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(12, 48, 30, 0.92) 0%,
+      rgba(12, 48, 30, 0.82) 40%,
+      rgba(12, 48, 30, 0.38) 68%,
+      rgba(12, 48, 30, 0.1) 100%
+    ),
+    url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=2000&q=90");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.heroOverlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+}
+
+.heroContent {
+  max-width: 620px;
+  color: white;
+}
+
+.heroTag,
+.sectionTag {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #2f7d45;
+  margin-bottom: 18px;
+}
+
+.heroTag {
+  color: white;
+  padding: 9px 15px;
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 30px;
+  background: rgba(255,255,255,0.1);
+}
+
+.heroContent h1 {
+  font-size: clamp(48px, 6vw, 78px);
+  line-height: 1.03;
+  margin: 0 0 22px;
+  color: white;
+}
+
+.heroContent p {
+  max-width: 560px;
+  font-size: 18px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.92);
+  margin-bottom: 30px;
+}
+
+.heroButton,
+.finalButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: #2f7d45;
+  color: white;
+  padding: 16px 24px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 700;
+  transition: 0.25s ease;
+}
+
+.heroButton:hover,
+.finalButton:hover {
+  transform: translateY(-3px);
+  background: #245f35;
+}
+
+.heroMessage {
+  position: absolute;
+  right: 7%;
+  bottom: 55px;
+  z-index: 2;
+
+  background: #2f7d45;
+  color: white;
+
+  padding: 25px;
+  border-radius: 45%;
+
+  text-align: center;
+
+  transform: rotate(-5deg);
+
+  box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+}
+
+.heroMessage span {
+  display: block;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+/* ================= INFO CARDS ================= */
+
+.contactInfo {
+  padding: 80px 0;
+  background: #f8faf7;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.infoCard {
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+
+  border: 1px solid #e7ece7;
+
+  box-shadow: 0 8px 25px rgba(20, 55, 40, 0.06);
+
+  transition: 0.25s ease;
+}
+
+.infoCard:hover {
+  transform: translateY(-6px);
+}
+
+.infoIcon {
+  width: 55px;
+  height: 55px;
+
+  display: grid;
+  place-items: center;
+
+  border-radius: 50%;
+
+  background: #eaf4e9;
+  color: #2f7d45;
+
+  margin-bottom: 20px;
+}
+
+.infoCard h3 {
+  font-size: 20px;
+  margin: 0 0 12px;
+}
+
+.infoCard p {
+  color: #607066;
+  line-height: 1.65;
+  font-size: 14px;
+}
+
+.infoCard a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+
+  margin-top: 15px;
+
+  color: #2f7d45;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+/* ================= FORM ================= */
+
+.formSection {
+  padding: 110px 0;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 70px;
+  align-items: center;
+}
+
+.formIntro h2,
+.sectionHeading h2 {
+  font-size: clamp(38px, 4vw, 58px);
+  line-height: 1.1;
+  margin: 0 0 22px;
+}
+
+.formIntro > p {
+  color: #607066;
+  line-height: 1.8;
+  font-size: 17px;
+}
+
+.contactPoints {
+  display: grid;
+  gap: 16px;
+  margin-top: 30px;
+}
+
+.contactPoints div {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 600;
+}
+
+.contactPoints svg {
+  color: #2f7d45;
+}
+
+.formDecorativeText {
+  margin-top: 45px;
+  color: #2f7d45;
+  font-size: 28px;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.formCard {
+  background: #f8faf7;
+  padding: 45px;
+  border-radius: 20px;
+  border: 1px solid #e4ebe4;
+}
+
+.formCard h3 {
+  font-size: 28px;
+  margin: 0 0 10px;
+}
+
+.formCard > p {
+  color: #607066;
+  margin-bottom: 30px;
+}
+
+.twoInputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.inputGroup {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.inputGroup label {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.inputGroup input,
+.inputGroup select,
+.inputGroup textarea {
+  width: 100%;
+  border: 1px solid #dce5dc;
+  border-radius: 8px;
+
+  background: white;
+
+  padding: 15px;
+
+  font-size: 15px;
+
+  outline: none;
+
+  font-family: inherit;
+
+  transition: 0.2s ease;
+}
+
+.inputGroup textarea {
+  min-height: 130px;
+  resize: vertical;
+}
+
+.inputGroup input:focus,
+.inputGroup select:focus,
+.inputGroup textarea:focus {
+  border-color: #2f7d45;
+  box-shadow: 0 0 0 3px rgba(47,125,69,0.1);
+}
+
+.submitButton {
+  width: 100%;
+  min-height: 54px;
+
+  border: none;
+  border-radius: 8px;
+
+  background: #2f7d45;
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+
+  font-size: 16px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: 0.25s ease;
+}
+
+.submitButton:hover {
+  background: #245f35;
+}
+
+.submitButton:disabled {
+  opacity: 0.7;
+  cursor: wait;
+}
+
+.successMessage,
+.errorMessage {
+  padding: 13px;
+  border-radius: 8px;
+  margin-bottom: 18px;
+  font-size: 14px;
+}
+
+.successMessage {
+  background: #eaf7ec;
+  color: #216b35;
+}
+
+.errorMessage {
+  background: #fff0f0;
+  color: #b42318;
+}
+
+/* ================= PROMISE ================= */
+
+.promiseSection {
+  position: relative;
+  padding: 120px 0;
+  overflow: hidden;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(12,48,30,0.92),
+      rgba(12,48,30,0.65),
+      rgba(12,48,30,0.25)
+    ),
+    url("https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=2000&q=90");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.promiseSection .container {
+  position: relative;
+  z-index: 2;
+}
+
+.promiseContent {
+  max-width: 650px;
+  color: white;
+}
+
+.promiseContent .sectionTag {
+  color: #b9e0b9;
+}
+
+.promiseContent h2 {
+  font-size: clamp(40px, 5vw, 65px);
+  line-height: 1.08;
+  margin: 0 0 22px;
+}
+
+.promiseContent p {
+  max-width: 570px;
+  font-size: 17px;
+  line-height: 1.75;
+  color: rgba(255,255,255,0.9);
+}
+
+.whiteButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 25px;
+
+  padding: 16px 24px;
+
+  background: white;
+  color: #174d2d;
+
+  text-decoration: none;
+  border-radius: 8px;
+
+  font-weight: 700;
+}
+
+.promiseMessage {
+  position: absolute;
+  right: 8%;
+  bottom: 60px;
+
+  font-size: 32px;
+  line-height: 1.15;
+  font-weight: 800;
+
+  color: rgba(255,255,255,0.9);
+}
+
+/* ================= QUICK ================= */
+
+.quickSection {
+  padding: 110px 0;
+  background: #ffffff;
+}
+
+.sectionHeading {
+  text-align: center;
+  max-width: 700px;
+  margin: 0 auto 55px;
+}
+
+.sectionHeading p {
+  color: #607066;
+  font-size: 17px;
+}
+
+.quickGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.quickCard {
+  padding: 35px;
+
+  border: 1px solid #e4ebe4;
+  border-radius: 15px;
+
+  color: #18372f;
+  text-decoration: none;
+
+  transition: 0.25s ease;
+}
+
+.quickCard:hover {
+  transform: translateY(-7px);
+  box-shadow: 0 15px 35px rgba(20,55,40,0.1);
+}
+
+.quickCard > svg:first-child {
+  color: #2f7d45;
+}
+
+.quickCard h3 {
+  margin: 22px 0 12px;
+  font-size: 22px;
+}
+
+.quickCard p {
+  color: #607066;
+  line-height: 1.65;
+}
+
+.quickCard > svg:last-child {
+  margin-top: 18px;
+  color: #2f7d45;
+}
+
+/* ================= FINAL CTA ================= */
+
+.finalCTA {
+  position: relative;
+  padding: 120px 0;
+  overflow: hidden;
+
+  background-image:
+    linear-gradient(
+      90deg,
+      rgba(12,48,30,0.9),
+      rgba(12,48,30,0.55),
+      rgba(12,48,30,0.2)
+    ),
+    url("https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=2000&q=90");
+
+  background-size: cover;
+  background-position: center;
+}
+
+.finalCTA .container {
+  position: relative;
+  z-index: 2;
+}
+
+.finalContent {
+  max-width: 650px;
+  color: white;
+}
+
+.finalContent > span {
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.finalContent h2 {
+  font-size: clamp(42px, 5vw, 65px);
+  line-height: 1.08;
+  margin: 20px 0;
+}
+
+.finalContent p {
+  font-size: 17px;
+  line-height: 1.7;
+  color: rgba(255,255,255,0.9);
+}
+
+.finalButton {
+  margin-top: 15px;
+  background: white;
+  color: #174d2d;
+}
+
+.finalButton:hover {
+  background: #f4f7f2;
+}
+
+.finalMessage {
+  position: absolute;
+  right: 8%;
+  bottom: 55px;
+
+  color: white;
+
+  font-size: 28px;
+  font-weight: 800;
+
+  line-height: 1.2;
+}
+
+/* ================= TABLET ================= */
+
+@media (max-width: 1024px) {
+
+  .infoGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .formGrid {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+
+  .promiseMessage,
+  .finalMessage {
+    display: none;
+  }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 768px) {
+
+  .container {
+    width: min(100% - 30px, 1200px);
+  }
+
+  .hero {
+    min-height: 600px;
+    background-position: 62% center;
+  }
+
+  .heroContent h1 {
+    font-size: 52px;
+  }
+
+  .heroMessage {
+    right: 15px;
+    bottom: 25px;
+    padding: 18px;
+  }
+
+  .heroMessage span {
+    font-size: 16px;
+  }
+
+  .infoGrid,
+  .quickGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .contactInfo,
+  .formSection,
+  .quickSection {
+    padding: 70px 0;
+  }
+
+  .formCard {
+    padding: 25px 20px;
+  }
+
+  .twoInputs {
+    grid-template-columns: 1fr;
+  }
+
+  .promiseSection,
+  .finalCTA {
+    padding: 90px 0;
+  }
+
+  .formIntro h2,
+  .sectionHeading h2 {
+    font-size: 40px;
+  }
+
+  .quickCard {
+    padding: 28px;
+  }
+}

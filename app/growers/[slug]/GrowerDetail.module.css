@@ -1,0 +1,176 @@
+.detailPage {
+  background: #f7f8f5;
+  color: #18372f;
+}
+
+.container {
+  width: min(1180px, 92%);
+  margin: 0 auto;
+}
+
+.hero {
+  min-height: 520px;
+
+  background-size: cover;
+  background-position: center;
+
+  color: white;
+
+  padding: 30px 0;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.backButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  color: white;
+  text-decoration: none;
+
+  font-size: 14px;
+  margin-bottom: 80px;
+
+  transition: 0.2s;
+}
+
+.backButton:hover {
+  transform: translateX(-4px);
+}
+
+.heroContent {
+  max-width: 700px;
+}
+
+.heroContent > span {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.heroContent h1 {
+  font-size: clamp(45px, 7vw, 82px);
+  line-height: 0.95;
+
+  margin: 12px 0;
+
+  letter-spacing: -3px;
+}
+
+.heroContent h2 {
+  font-size: 25px;
+  margin: 0 0 20px;
+}
+
+.location {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 16px;
+}
+
+.contentSection {
+  padding: 80px 0;
+}
+
+.contentGrid {
+  display: grid;
+  grid-template-columns: 1.4fr 0.6fr;
+  gap: 80px;
+}
+
+.tag {
+  color: #25704a;
+
+  font-size: 11px;
+  font-weight: 800;
+
+  letter-spacing: 1.5px;
+}
+
+.contentGrid h2 {
+  font-size: 42px;
+  line-height: 1.05;
+
+  margin: 10px 0 25px;
+}
+
+.contentGrid p {
+  color: #62706a;
+
+  font-size: 16px;
+  line-height: 1.7;
+
+  margin-bottom: 18px;
+}
+
+.shopButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-top: 15px;
+
+  padding: 14px 25px;
+
+  background: #14613c;
+  color: white;
+
+  text-decoration: none;
+
+  border-radius: 999px;
+
+  font-weight: 600;
+}
+
+.infoCard {
+  background: white;
+
+  padding: 40px;
+
+  border-radius: 12px;
+
+  box-shadow: 0 10px 35px rgba(20, 50, 35, 0.1);
+}
+
+.infoCard svg {
+  color: #17603c;
+  margin-bottom: 10px;
+}
+
+.infoCard h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+
+.infoCard p {
+  font-size: 14px !important;
+  margin-bottom: 30px !important;
+}
+
+@media (max-width: 750px) {
+  .hero {
+    min-height: 460px;
+  }
+
+  .backButton {
+    margin-bottom: 55px;
+  }
+
+  .contentGrid {
+    grid-template-columns: 1fr;
+    gap: 35px;
+  }
+
+  .contentGrid h2 {
+    font-size: 34px;
+  }
+
+  .contentSection {
+    padding: 50px 0;
+  }
+}
