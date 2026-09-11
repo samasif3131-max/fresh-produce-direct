@@ -25,12 +25,28 @@ export default function CheckoutPage() {
 
   const [deliveryMethod, setDeliveryMethod] = useState("delivery");
 
+  /* ================================
+     SUBTOTAL
+  ================================= */
+
   const subtotal = cart.reduce((total, item) => {
     const price = Number(item.price.replace("£", ""));
     const quantity = item.quantity || 1;
 
     return total + price * quantity;
   }, 0);
+
+  /* ================================
+     TOTAL QUANTITY
+  ================================= */
+
+  const totalItems = cart.reduce((total, item) => {
+    return total + (item.quantity || 1);
+  }, 0);
+
+  /* ================================
+     DELIVERY COST
+  ================================= */
 
   const deliveryCost =
     deliveryMethod === "delivery"
@@ -39,33 +55,54 @@ export default function CheckoutPage() {
         : 4.99
       : 0;
 
+  /* ================================
+     FINAL TOTAL
+  ================================= */
+
   const total = subtotal + deliveryCost;
 
   return (
     <main className={styles.checkoutPage}>
       <Header />
 
-      {/* HERO */}
+      {/* ================================
+          HERO
+      ================================= */}
+
       <section className={styles.checkoutHero}>
         <div className={styles.container}>
-          <span className={styles.heroTag}>SECURE CHECKOUT</span>
+          <span className={styles.heroTag}>
+            SECURE CHECKOUT
+          </span>
 
           <h1>Complete Your Order</h1>
 
           <p>
-            Just a few more details and your fresh produce will be on its way.
+            Just a few more details and your fresh produce
+            will be on its way.
           </p>
         </div>
       </section>
 
-      {/* CHECKOUT */}
+      {/* ================================
+          CHECKOUT SECTION
+      ================================= */}
+
       <section className={styles.checkoutSection}>
         <div className={styles.container}>
-          {/* BACK TO CART */}
-          <Link href="/cart" className={styles.backButton}>
+          {/* BACK BUTTON */}
+
+          <Link
+            href="/cart"
+            className={styles.backButton}
+          >
             <ArrowLeft size={18} />
             Back to Basket
           </Link>
+
+          {/* ================================
+              EMPTY CART
+          ================================= */}
 
           {cart.length === 0 ? (
             <div className={styles.emptyCart}>
@@ -74,31 +111,49 @@ export default function CheckoutPage() {
               <h2>Your Basket is Empty</h2>
 
               <p>
-                Add some delicious fresh produce before heading to checkout.
+                Add some delicious fresh produce before
+                heading to checkout.
               </p>
 
-              <Link href="/shop" className={styles.shopButton}>
+              <Link
+                href="/shop"
+                className={styles.shopButton}
+              >
                 Continue Shopping
               </Link>
             </div>
           ) : (
             <div className={styles.checkoutGrid}>
-              {/* LEFT SIDE */}
+              {/* ================================
+                  LEFT SIDE
+              ================================= */}
+
               <div className={styles.checkoutForms}>
-                {/* CONTACT */}
+                {/* CONTACT INFORMATION */}
+
                 <div className={styles.formCard}>
                   <div className={styles.cardTitle}>
-                    <div className={styles.number}>1</div>
+                    <div className={styles.number}>
+                      1
+                    </div>
 
                     <div>
-                      <h2>Contact Information</h2>
-                      <p>We'll use these details to contact you about your order.</p>
+                      <h2>
+                        Contact Information
+                      </h2>
+
+                      <p>
+                        We'll use these details to contact
+                        you about your order.
+                      </p>
                     </div>
                   </div>
 
                   <div className={styles.formGrid}>
                     <div className={styles.fullWidth}>
-                      <label>Email Address</label>
+                      <label>
+                        Email Address
+                      </label>
 
                       <input
                         type="email"
@@ -107,7 +162,9 @@ export default function CheckoutPage() {
                     </div>
 
                     <div>
-                      <label>First Name</label>
+                      <label>
+                        First Name
+                      </label>
 
                       <input
                         type="text"
@@ -116,7 +173,9 @@ export default function CheckoutPage() {
                     </div>
 
                     <div>
-                      <label>Last Name</label>
+                      <label>
+                        Last Name
+                      </label>
 
                       <input
                         type="text"
@@ -125,7 +184,9 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className={styles.fullWidth}>
-                      <label>Phone Number</label>
+                      <label>
+                        Phone Number
+                      </label>
 
                       <input
                         type="tel"
@@ -135,18 +196,31 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                {/* DELIVERY METHOD */}
+                {/* ================================
+                    DELIVERY METHOD
+                ================================= */}
+
                 <div className={styles.formCard}>
                   <div className={styles.cardTitle}>
-                    <div className={styles.number}>2</div>
+                    <div className={styles.number}>
+                      2
+                    </div>
 
                     <div>
-                      <h2>Delivery Method</h2>
-                      <p>Choose how you would like to receive your order.</p>
+                      <h2>
+                        Delivery Method
+                      </h2>
+
+                      <p>
+                        Choose how you would like to
+                        receive your order.
+                      </p>
                     </div>
                   </div>
 
                   <div className={styles.deliveryOptions}>
+                    {/* HOME DELIVERY */}
+
                     <button
                       type="button"
                       className={`${styles.deliveryOption} ${
@@ -154,12 +228,16 @@ export default function CheckoutPage() {
                           ? styles.deliveryActive
                           : ""
                       }`}
-                      onClick={() => setDeliveryMethod("delivery")}
+                      onClick={() =>
+                        setDeliveryMethod("delivery")
+                      }
                     >
                       <Truck size={24} />
 
                       <div>
-                        <strong>Home Delivery</strong>
+                        <strong>
+                          Home Delivery
+                        </strong>
 
                         <span>
                           {subtotal >= 30
@@ -169,11 +247,12 @@ export default function CheckoutPage() {
                       </div>
 
                       <div className={styles.radioCircle}>
-                        {deliveryMethod === "delivery" && (
-                          <div />
-                        )}
+                        {deliveryMethod ===
+                          "delivery" && <div />}
                       </div>
                     </button>
+
+                    {/* COLLECTION */}
 
                     <button
                       type="button"
@@ -182,29 +261,39 @@ export default function CheckoutPage() {
                           ? styles.deliveryActive
                           : ""
                       }`}
-                      onClick={() => setDeliveryMethod("collection")}
+                      onClick={() =>
+                        setDeliveryMethod("collection")
+                      }
                     >
                       <MapPin size={24} />
 
                       <div>
-                        <strong>Local Collection</strong>
+                        <strong>
+                          Local Collection
+                        </strong>
 
-                        <span>Collect your order for FREE</span>
+                        <span>
+                          Collect your order for FREE
+                        </span>
                       </div>
 
                       <div className={styles.radioCircle}>
-                        {deliveryMethod === "collection" && (
-                          <div />
-                        )}
+                        {deliveryMethod ===
+                          "collection" && <div />}
                       </div>
                     </button>
                   </div>
                 </div>
 
-                {/* ADDRESS */}
+                {/* ================================
+                    ADDRESS
+                ================================= */}
+
                 <div className={styles.formCard}>
                   <div className={styles.cardTitle}>
-                    <div className={styles.number}>3</div>
+                    <div className={styles.number}>
+                      3
+                    </div>
 
                     <div>
                       <h2>
@@ -223,7 +312,9 @@ export default function CheckoutPage() {
 
                   <div className={styles.formGrid}>
                     <div className={styles.fullWidth}>
-                      <label>Address Line 1</label>
+                      <label>
+                        Address Line 1
+                      </label>
 
                       <input
                         type="text"
@@ -232,7 +323,9 @@ export default function CheckoutPage() {
                     </div>
 
                     <div className={styles.fullWidth}>
-                      <label>Address Line 2</label>
+                      <label>
+                        Address Line 2
+                      </label>
 
                       <input
                         type="text"
@@ -241,7 +334,9 @@ export default function CheckoutPage() {
                     </div>
 
                     <div>
-                      <label>Town / City</label>
+                      <label>
+                        Town / City
+                      </label>
 
                       <input
                         type="text"
@@ -250,7 +345,9 @@ export default function CheckoutPage() {
                     </div>
 
                     <div>
-                      <label>Postcode</label>
+                      <label>
+                        Postcode
+                      </label>
 
                       <input
                         type="text"
@@ -260,14 +357,25 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                {/* PAYMENT */}
+                {/* ================================
+                    PAYMENT
+                ================================= */}
+
                 <div className={styles.formCard}>
                   <div className={styles.cardTitle}>
-                    <div className={styles.number}>4</div>
+                    <div className={styles.number}>
+                      4
+                    </div>
 
                     <div>
-                      <h2>Payment</h2>
-                      <p>Your payment details are securely protected.</p>
+                      <h2>
+                        Payment
+                      </h2>
+
+                      <p>
+                        Your payment details are securely
+                        protected.
+                      </p>
                     </div>
                   </div>
 
@@ -275,10 +383,13 @@ export default function CheckoutPage() {
                     <CreditCard size={25} />
 
                     <div>
-                      <strong>Payment Method</strong>
+                      <strong>
+                        Payment Method
+                      </strong>
 
                       <span>
-                        Payment integration will be connected next.
+                        Payment integration will be
+                        connected next.
                       </span>
                     </div>
 
@@ -286,7 +397,10 @@ export default function CheckoutPage() {
                   </div>
                 </div>
 
-                {/* PLACE ORDER */}
+                {/* ================================
+                    PLACE ORDER
+                ================================= */}
+
                 <Link
                   href="/order-confirmation"
                   className={styles.placeOrderButton}
@@ -303,77 +417,155 @@ export default function CheckoutPage() {
                 </div>
               </div>
 
-              {/* RIGHT SIDE ORDER SUMMARY */}
+              {/* ================================
+                  RIGHT SIDE - ORDER SUMMARY
+              ================================= */}
+
               <aside className={styles.orderSummary}>
                 <div className={styles.summarySticky}>
                   <div className={styles.summaryHeader}>
-                    <h2>Your Order</h2>
+                    <h2>
+                      Your Order
+                    </h2>
 
-                    <span>{cart.length} Items</span>
+                    <span>
+                      {totalItems}{" "}
+                      {totalItems === 1
+                        ? "Item"
+                        : "Items"}
+                    </span>
                   </div>
+
+                  {/* PRODUCTS */}
 
                   <div className={styles.summaryProducts}>
-                    {cart.map((item) => (
-                      <div
-                        key={item.name}
-                        className={styles.summaryProduct}
-                      >
-                        <div className={styles.summaryImage}>
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                          />
+                    {cart.map((item) => {
+                      const quantity =
+                        item.quantity || 1;
 
-                          <span>{item.quantity || 1}</span>
+                      const price =
+                        Number(
+                          item.price.replace("£", "")
+                        );
+
+                      const itemTotal =
+                        price * quantity;
+
+                      return (
+                        <div
+                          key={item.name}
+                          className={
+                            styles.summaryProduct
+                          }
+                        >
+                          <div
+                            className={
+                              styles.summaryImage
+                            }
+                          >
+                            <img
+                              src={item.image}
+                              alt={item.name}
+                            />
+
+                            <span>
+                              {quantity}
+                            </span>
+                          </div>
+
+                          <div
+                            className={
+                              styles.summaryInfo
+                            }
+                          >
+                            <strong>
+                              {item.name}
+                            </strong>
+
+                            {/* UNIT REMOVED TO FIX TS2339 */}
+
+                            <small>
+                              Fresh Produce
+                            </small>
+                          </div>
+
+                          <b>
+                            £
+                            {itemTotal.toFixed(2)}
+                          </b>
                         </div>
-
-                        <div className={styles.summaryInfo}>
-                          <strong>{item.name}</strong>
-
-                          <small>{item.unit}</small>
-                        </div>
-
-                        <b>
-                          £
-                          {(
-                            Number(item.price.replace("£", "")) *
-                            (item.quantity || 1)
-                          ).toFixed(2)}
-                        </b>
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
 
-                  <div className={styles.summaryCalculations}>
-                    <div>
-                      <span>Subtotal</span>
+                  {/* ================================
+                      CALCULATIONS
+                  ================================= */}
 
-                      <strong>£{subtotal.toFixed(2)}</strong>
+                  <div
+                    className={
+                      styles.summaryCalculations
+                    }
+                  >
+                    {/* SUBTOTAL */}
+
+                    <div>
+                      <span>
+                        Subtotal
+                      </span>
+
+                      <strong>
+                        £{subtotal.toFixed(2)}
+                      </strong>
                     </div>
 
+                    {/* DELIVERY */}
+
                     <div>
-                      <span>Delivery</span>
+                      <span>
+                        Delivery
+                      </span>
 
                       <strong>
                         {deliveryCost === 0
                           ? "FREE"
-                          : `£${deliveryCost.toFixed(2)}`}
+                          : `£${deliveryCost.toFixed(
+                              2
+                            )}`}
                       </strong>
                     </div>
 
+                    {/* FREE DELIVERY NOTICE */}
+
                     {deliveryMethod === "delivery" &&
                       subtotal < 30 && (
-                        <p className={styles.deliveryNotice}>
-                          Add £{(30 - subtotal).toFixed(2)} more for FREE delivery!
+                        <p
+                          className={
+                            styles.deliveryNotice
+                          }
+                        >
+                          Add £
+                          {(30 - subtotal).toFixed(2)}
+                          {" "}more for FREE delivery!
                         </p>
                       )}
 
-                    <div className={styles.totalRow}>
-                      <span>Total</span>
+                    {/* TOTAL */}
 
-                      <strong>£{total.toFixed(2)}</strong>
+                    <div className={styles.totalRow}>
+                      <span>
+                        Total
+                      </span>
+
+                      <strong>
+                        £{total.toFixed(2)}
+                      </strong>
                     </div>
                   </div>
+
+                  {/* ================================
+                      BENEFITS
+                  ================================= */}
 
                   <div className={styles.summaryBenefits}>
                     <div>
