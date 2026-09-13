@@ -27,29 +27,25 @@ const boxes = [
     title: "Mixed Veg Box",
     description: "A fresh selection of seasonal vegetables.",
     price: "From £12.50",
-    image:
-      "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80",
+    image: "/mixed%20veg%20box.jpeg",
   },
   {
     title: "Fruit Box",
     description: "A variety of fresh, seasonal fruits.",
     price: "From £12.50",
-    image:
-      "https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=800&q=80",
+    image: "/fruit%20box.jpeg",
   },
   {
     title: "Family Box",
     description: "A larger box perfect for families.",
     price: "From £20.00",
-    image:
-      "https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=800&q=80",
+    image: "/family%20box.jpeg",
   },
   {
     title: "Essentials Box",
     description: "All the everyday favourites.",
     price: "From £10.00",
-    image:
-      "https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&w=800&q=80",
+    image: "/essential%20box.jpeg",
   },
 ];
 
@@ -431,7 +427,6 @@ export default function Home() {
             <div className="produce-image-wrap">
 
               <img
-                src="https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1400&q=90"
                 alt="Fresh seasonal vegetables"
               />
 

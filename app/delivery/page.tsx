@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ChangeEvent, type FormEvent } from "react";
 import Link from "next/link";
 
 import Header from "../components/Header";
@@ -69,7 +69,7 @@ const faqs = [
 ];
 
 /* =========================================
-   REUSABLE POSTCODE CHECKER
+   POSTCODE CHECKER
 ========================================= */
 
 function PostcodeChecker({
@@ -103,7 +103,7 @@ function PostcodeChecker({
   };
 
   const handleChange = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: ChangeEvent<HTMLInputElement>
   ) => {
     setPostcode(event.target.value);
     setResult(null);
@@ -119,7 +119,7 @@ function PostcodeChecker({
     >
       <div className={styles.postcodeRow}>
         <div className={styles.postcodeInput}>
-          <MapPin size={19} />
+          <MapPin size={20} />
 
           <input
             type="text"
@@ -153,12 +153,13 @@ function PostcodeChecker({
               role="status"
               aria-live="polite"
             >
-              <CheckCircle2 size={18} />
+              <CheckCircle2 size={19} />
 
               <div>
                 <strong>
                   Great news! We deliver to{" "}
-                  {result.postcode || formatPostcode(postcode)}
+                  {result.postcode ||
+                    formatPostcode(postcode)}
                 </strong>
 
                 {result.zone && (
@@ -194,7 +195,7 @@ function PostcodeChecker({
 }
 
 /* =========================================
-   MAIN DELIVERY PAGE
+   DELIVERY PAGE
 ========================================= */
 
 export default function DeliveryPage() {
@@ -206,14 +207,16 @@ export default function DeliveryPage() {
     useState("");
 
   const handleNewsletter = (
-    event: React.FormEvent<HTMLFormElement>
+    event: FormEvent<HTMLFormElement>
   ) => {
     event.preventDefault();
+
+    const cleanEmail = email.trim();
 
     const emailRegex =
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(email.trim())) {
+    if (!emailRegex.test(cleanEmail)) {
       setNewsletterMessage(
         "Please enter a valid email address."
       );
@@ -236,64 +239,54 @@ export default function DeliveryPage() {
       ========================================= */}
 
       <section className={styles.hero}>
-        <div className={styles.heroDecorLeaf}>
-          <Leaf />
-        </div>
+        <div className={styles.heroBackground} />
+        <div className={styles.heroOverlay} />
 
-        <div className={styles.container}>
-          <div className={styles.heroGrid}>
-            <div className={styles.heroContent}>
-              <span className={styles.heroTag}>
-                LOCAL • FRESH • RELIABLE
-              </span>
+        <div className={styles.heroContainer}>
+          <div className={styles.heroContent}>
+            <span className={styles.heroTag}>
+              LOCAL • FRESH • RELIABLE
+            </span>
 
-              <h1>
-                Local Delivery
-                <br />
-                Straight To Your Door
-              </h1>
+            <h1>
+              Local Delivery
+              <br />
+              Straight To Your Door
+            </h1>
 
-              <p>
-                Fresh produce. Delivered to your area.
-                <br />
-                On time, every time.
-              </p>
+            <p>
+              Fresh produce. Delivered to your area.
+              <br />
+              On time, every time.
+            </p>
 
-              <PostcodeChecker />
+            <PostcodeChecker />
 
-              <a
-                href="#delivery-coverage"
-                className={styles.heroCTA}
-              >
-                Check If We Deliver To You
-                <ArrowRight size={19} />
-              </a>
-            </div>
+            <a
+              href="#delivery-coverage"
+              className={styles.heroCTA}
+            >
+              Check If We Deliver To You
+              <ArrowRight size={20} />
+            </a>
+          </div>
 
-            <div className={styles.heroVisual}>
-              <div className={styles.heroImage}>
-                <img
-                  src="https://images.unsplash.com/photo-1595855759920-86582396756a?auto=format&fit=crop&w=1400&q=90"
-                  alt="Fresh local produce delivery"
-                />
-              </div>
+          <div className={styles.heroVisual}>
+            <div className={styles.deliveryBadge}>
+              <span>Fresh Produce</span>
 
-              <div className={styles.freshBadge}>
-                <span>Fresh Produce</span>
+              <strong>
+                Delivered Locally
+              </strong>
 
-                <strong>
-                  Delivered Locally
-                </strong>
-
-                <Leaf size={23} />
-              </div>
+              <Leaf size={30} />
             </div>
           </div>
         </div>
       </section>
 
       {/* =========================================
-          BENEFITS BAR
+          BENEFITS
       ========================================= */}
 
       <section className={styles.benefitsBar}>
@@ -304,7 +297,10 @@ export default function DeliveryPage() {
 
               <div>
                 <h3>Local Delivery</h3>
-                <p>Supporting Local Communities</p>
+
+                <p>
+                  Supporting Local Communities
+                </p>
               </div>
             </div>
 
@@ -313,7 +309,10 @@ export default function DeliveryPage() {
 
               <div>
                 <h3>Flexible Delivery Days</h3>
-                <p>To Suit Your Routine</p>
+
+                <p>
+                  To Suit Your Routine
+                </p>
               </div>
             </div>
 
@@ -322,7 +321,10 @@ export default function DeliveryPage() {
 
               <div>
                 <h3>Leave Safe Options</h3>
-                <p>Available</p>
+
+                <p>
+                  Available
+                </p>
               </div>
             </div>
 
@@ -331,6 +333,7 @@ export default function DeliveryPage() {
 
               <div>
                 <h3>Freshness Guaranteed</h3>
+
                 <p>
                   Picked, packed and delivered with care
                 </p>
@@ -356,7 +359,9 @@ export default function DeliveryPage() {
           <div className={styles.sectionHeading}>
             <span>DELIVERY MADE SIMPLE</span>
 
-            <h2>Our Delivery Information</h2>
+            <h2>
+              Our Delivery Information
+            </h2>
 
             <p>
               Everything you need to know about getting
@@ -504,9 +509,8 @@ export default function DeliveryPage() {
               </h2>
 
               <p>
-                We currently deliver to selected areas
-                around Spalding, Donington and surrounding
-                villages.
+                We currently deliver to Spalding,
+                Donington and surrounding villages.
               </p>
 
               <p>
@@ -526,36 +530,96 @@ export default function DeliveryPage() {
             </div>
 
             <div className={styles.mapVisual}>
-              <div className={styles.mapShape}>
-                <span className={styles.mapPinOne}>
+              <div className={styles.mapGridLines} />
+
+              <div
+                className={`${styles.mapRoad} ${styles.roadOne}`}
+              />
+
+              <div
+                className={`${styles.mapRoad} ${styles.roadTwo}`}
+              />
+
+              <div
+                className={`${styles.mapRoad} ${styles.roadThree}`}
+              />
+
+              <div
+                className={`${styles.mapLocation} ${styles.locationSpalding}`}
+              >
+                <MapPin size={23} />
+
+                <strong>
                   Spalding
-                </span>
+                </strong>
+              </div>
 
-                <span className={styles.mapPinTwo}>
+              <div
+                className={`${styles.mapLocation} ${styles.locationDonington}`}
+              >
+                <MapPin size={20} />
+
+                <strong>
                   Donington
-                </span>
+                </strong>
+              </div>
 
-                <span className={styles.mapPinThree}>
+              <div
+                className={`${styles.mapLocation} ${styles.locationPinchbeck}`}
+              >
+                <MapPin size={18} />
+
+                <span>
                   Pinchbeck
                 </span>
+              </div>
 
-                <span className={styles.mapPinFour}>
+              <div
+                className={`${styles.mapLocation} ${styles.locationWeston}`}
+              >
+                <MapPin size={18} />
+
+                <span>
                   Weston
                 </span>
+              </div>
 
-                <span className={styles.mapPinFive}>
+              <div
+                className={`${styles.mapLocation} ${styles.locationMoulton}`}
+              >
+                <MapPin size={18} />
+
+                <span>
                   Moulton
                 </span>
+              </div>
 
-                <span className={styles.mapPinSix}>
+              <div
+                className={`${styles.mapLocation} ${styles.locationSurfleet}`}
+              >
+                <MapPin size={18} />
+
+                <span>
                   Surfleet
                 </span>
+              </div>
 
-                <span className={styles.mapPinSeven}>
+              <div
+                className={`${styles.mapLocation} ${styles.locationHolbeach}`}
+              >
+                <MapPin size={18} />
+
+                <span>
                   Holbeach
                 </span>
+              </div>
 
-                <span className={styles.mapPinEight}>
+              <div
+                className={`${styles.mapLocation} ${styles.locationSutton}`}
+              >
+                <MapPin size={18} />
+
+                <span>
                   Long Sutton
                 </span>
               </div>
@@ -569,7 +633,7 @@ export default function DeliveryPage() {
                   Local Communities
                 </strong>
 
-                <Truck size={26} />
+                <Truck size={28} />
               </div>
             </div>
           </div>
@@ -586,9 +650,13 @@ export default function DeliveryPage() {
       >
         <div className={styles.container}>
           <div className={styles.sectionHeading}>
-            <span>FRESH FROM FARM TO DOOR</span>
+            <span>
+              FRESH FROM FARM TO DOOR
+            </span>
 
-            <h2>How Delivery Works</h2>
+            <h2>
+              How Delivery Works
+            </h2>
 
             <p>
               From our fields to your table – fresh,
@@ -598,13 +666,17 @@ export default function DeliveryPage() {
 
           <div className={styles.processGrid}>
             <div className={styles.processItem}>
-              <div className={styles.stepNumber}>1</div>
+              <div className={styles.stepNumber}>
+                1
+              </div>
 
               <div className={styles.processIcon}>
                 <ShoppingBasket />
               </div>
 
-              <h3>Choose Your Produce</h3>
+              <h3>
+                Choose Your Produce
+              </h3>
 
               <p>
                 Select from our boxes or shop fresh
@@ -612,33 +684,45 @@ export default function DeliveryPage() {
               </p>
             </div>
 
-            <ArrowRight className={styles.processArrow} />
+            <ArrowRight
+              className={styles.processArrow}
+            />
 
             <div className={styles.processItem}>
-              <div className={styles.stepNumber}>2</div>
+              <div className={styles.stepNumber}>
+                2
+              </div>
 
               <div className={styles.processIcon}>
                 <Package />
               </div>
 
-              <h3>We Pick & Pack</h3>
+              <h3>
+                We Pick & Pack
+              </h3>
 
               <p>
-                Our local growers pick and pack your order
-                fresh.
+                Our local growers pick and pack your
+                order fresh.
               </p>
             </div>
 
-            <ArrowRight className={styles.processArrow} />
+            <ArrowRight
+              className={styles.processArrow}
+            />
 
             <div className={styles.processItem}>
-              <div className={styles.stepNumber}>3</div>
+              <div className={styles.stepNumber}>
+                3
+              </div>
 
               <div className={styles.processIcon}>
                 <Truck />
               </div>
 
-              <h3>We Deliver</h3>
+              <h3>
+                We Deliver
+              </h3>
 
               <p>
                 We bring it to your door on your chosen
@@ -646,16 +730,22 @@ export default function DeliveryPage() {
               </p>
             </div>
 
-            <ArrowRight className={styles.processArrow} />
+            <ArrowRight
+              className={styles.processArrow}
+            />
 
             <div className={styles.processItem}>
-              <div className={styles.stepNumber}>4</div>
+              <div className={styles.stepNumber}>
+                4
+              </div>
 
               <div className={styles.processIcon}>
                 <Leaf />
               </div>
 
-              <h3>Enjoy Fresh Produce</h3>
+              <h3>
+                Enjoy Fresh Produce
+              </h3>
 
               <p>
                 Unpack, enjoy and feel the difference!
@@ -675,9 +765,13 @@ export default function DeliveryPage() {
       >
         <div className={styles.container}>
           <div className={styles.sectionHeading}>
-            <span>HELP & SUPPORT</span>
+            <span>
+              HELP & SUPPORT
+            </span>
 
-            <h2>Delivery FAQs</h2>
+            <h2>
+              Delivery FAQs
+            </h2>
 
             <p>
               Got a question? We've got you covered.
@@ -695,12 +789,18 @@ export default function DeliveryPage() {
                   className={styles.faqQuestion}
                   onClick={() =>
                     setOpenFAQ(
-                      openFAQ === index ? null : index
+                      openFAQ === index
+                        ? null
+                        : index
                     )
                   }
-                  aria-expanded={openFAQ === index}
+                  aria-expanded={
+                    openFAQ === index
+                  }
                 >
-                  <span>{faq.question}</span>
+                  <span>
+                    {faq.question}
+                  </span>
 
                   <ChevronDown
                     className={
@@ -718,7 +818,9 @@ export default function DeliveryPage() {
                       : styles.faqAnswer
                   }
                 >
-                  <p>{faq.answer}</p>
+                  <p>
+                    {faq.answer}
+                  </p>
                 </div>
               </div>
             ))}
@@ -736,10 +838,13 @@ export default function DeliveryPage() {
         <div className={styles.container}>
           <div className={styles.waitingGrid}>
             <div className={styles.waitingContent}>
-              <span>STAY UPDATED</span>
+              <span>
+                STAY UPDATED
+              </span>
 
               <h2>
-                Not in our delivery area yet?
+                Not in our delivery
+                area yet?
               </h2>
 
               <p>
@@ -752,7 +857,7 @@ export default function DeliveryPage() {
                 onSubmit={handleNewsletter}
               >
                 <div>
-                  <Mail size={18} />
+                  <Mail size={19} />
 
                   <input
                     type="email"
@@ -773,18 +878,28 @@ export default function DeliveryPage() {
               </form>
 
               {newsletterMessage && (
-                <p className={styles.newsletterMessage}>
+                <p
+                  className={
+                    styles.newsletterMessage
+                  }
+                >
                   {newsletterMessage}
                 </p>
               )}
             </div>
 
             <div className={styles.waitingMessage}>
-              More
-              <br />
-              Communities
-              <br />
-              Healthier Futures
+              <span>
+                More
+              </span>
+
+              <span>
+                Communities
+              </span>
+
+              <span>
+                Healthier Futures
+              </span>
             </div>
           </div>
         </div>

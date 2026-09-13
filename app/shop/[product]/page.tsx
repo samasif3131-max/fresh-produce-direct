@@ -2,6 +2,7 @@
 
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { useState } from "react";
 
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
@@ -21,10 +22,7 @@ import {
   Check,
 } from "lucide-react";
 
-import { useState } from "react";
-
 import styles from "./Product.module.css";
-
 
 /* =========================================
    PRODUCTS DATA
@@ -188,22 +186,18 @@ const products = [
   },
 ];
 
-
 /* =========================================
    PRODUCT DETAIL PAGE
 ========================================= */
 
 export default function ProductPage() {
-
   const params = useParams();
 
   const slug = params.product as string;
 
-
   const product = products.find(
     (item) => item.slug === slug
   );
-
 
   const { addToCart } = useCart();
 
@@ -213,24 +207,18 @@ export default function ProductPage() {
     isInWishlist,
   } = useWishlist();
 
-
   const [quantity, setQuantity] = useState(1);
-
 
   /* =========================================
      PRODUCT NOT FOUND
   ========================================= */
 
   if (!product) {
-
     return (
-
       <main>
-
         <Header />
 
         <div className={styles.notFound}>
-
           <h1>Product Not Found</h1>
 
           <p>
@@ -240,77 +228,49 @@ export default function ProductPage() {
           <Link href="/shop">
             Back to Shop
           </Link>
-
         </div>
 
         <Footer />
-
       </main>
-
     );
-
   }
-
 
   const productInWishlist =
     isInWishlist(product.name);
-
 
   /* =========================================
      ADD TO CART
   ========================================= */
 
   const handleAddToCart = () => {
-
     for (let i = 0; i < quantity; i++) {
-
       addToCart(product);
-
     }
-
   };
-
 
   /* =========================================
      WISHLIST
   ========================================= */
 
   const handleWishlist = () => {
-
     if (productInWishlist) {
-
       removeFromWishlist(product.name);
-
     } else {
-
       addToWishlist(product);
-
     }
-
   };
 
-
   return (
-
     <main className={styles.productPage}>
-
       <Header />
 
-
-      {/* =====================================
-          BREADCRUMB
-      ===================================== */}
+      {/* BREADCRUMB */}
 
       <section className={styles.breadcrumb}>
-
         <div className={styles.breadcrumbContainer}>
-
           <Link href="/shop">
-
             <ArrowLeft size={17} />
-
             Back to Shop
-
           </Link>
 
           <span>/</span>
@@ -320,41 +280,33 @@ export default function ProductPage() {
           <span>/</span>
 
           <strong>{product.name}</strong>
-
         </div>
-
       </section>
 
-
-      {/* =====================================
-          PRODUCT SECTION
-      ===================================== */}
+      {/* PRODUCT SECTION */}
 
       <section className={styles.productSection}>
-
         <div className={styles.productContainer}>
-
 
           {/* PRODUCT IMAGE */}
 
           <div className={styles.imageColumn}>
-
             <div className={styles.mainImage}>
-
               <img
                 src={product.image}
                 alt={product.name}
               />
 
               <button
+                type="button"
                 className={`${styles.heartButton} ${
                   productInWishlist
                     ? styles.heartActive
                     : ""
                 }`}
                 onClick={handleWishlist}
+                aria-label="Add to wishlist"
               >
-
                 <Heart
                   size={22}
                   fill={
@@ -363,107 +315,65 @@ export default function ProductPage() {
                       : "none"
                   }
                 />
-
               </button>
-
             </div>
-
           </div>
-
 
           {/* PRODUCT DETAILS */}
 
           <div className={styles.detailsColumn}>
-
-
             <span className={styles.categoryTag}>
-
               {product.category}
-
             </span>
 
-
-            <h1>
-
-              {product.name}
-
-            </h1>
-
+            <h1>{product.name}</h1>
 
             <p className={styles.origin}>
-
               <MapPin size={18} />
-
               {product.origin}
-
             </p>
 
-
             <div className={styles.priceRow}>
-
               <span className={styles.price}>
-
                 {product.price}
-
               </span>
 
               <span className={styles.unit}>
-
                 {product.unit}
-
               </span>
-
             </div>
 
-
             <p className={styles.description}>
-
               {product.description}
-
             </p>
-
 
             {/* TRUST POINTS */}
 
             <div className={styles.trustPoints}>
-
               <div>
-
                 <Check size={18} />
-
                 Freshly selected
-
               </div>
 
               <div>
-
                 <Check size={18} />
-
                 Quality guaranteed
-
               </div>
 
               <div>
-
                 <Check size={18} />
-
                 Carefully delivered
-
               </div>
-
             </div>
-
 
             {/* QUANTITY */}
 
             <div className={styles.quantityArea}>
-
               <span>Quantity</span>
 
-
               <div className={styles.quantityBox}>
-
                 <button
+                  type="button"
                   onClick={() =>
                     setQuantity(
                       quantity > 1
@@ -471,52 +381,39 @@ export default function ProductPage() {
                         : 1
                     )
                   }
+                  aria-label="Decrease quantity"
                 >
-
                   <Minus size={17} />
-
                 </button>
 
-
-                <strong>
-
-                  {quantity}
-
-                </strong>
-
+                <strong>{quantity}</strong>
 
                 <button
+                  type="button"
                   onClick={() =>
                     setQuantity(quantity + 1)
                   }
+                  aria-label="Increase quantity"
                 >
-
                   <Plus size={17} />
-
                 </button>
-
               </div>
-
             </div>
-
 
             {/* BUTTONS */}
 
             <div className={styles.productButtons}>
-
               <button
+                type="button"
                 className={styles.addToBasket}
                 onClick={handleAddToCart}
               >
-
                 <ShoppingBasket size={20} />
-
                 Add to Basket
-
               </button>
 
-
               <button
+                type="button"
                 className={`${styles.wishlistAction} ${
                   productInWishlist
                     ? styles.wishlistActionActive
@@ -524,7 +421,6 @@ export default function ProductPage() {
                 }`}
                 onClick={handleWishlist}
               >
-
                 <Heart
                   size={20}
                   fill={
@@ -537,23 +433,16 @@ export default function ProductPage() {
                 {productInWishlist
                   ? "Saved to Wishlist"
                   : "Save to Wishlist"}
-
               </button>
-
             </div>
-
 
             {/* DELIVERY INFO */}
 
             <div className={styles.deliveryInfo}>
-
-
               <div>
-
                 <Truck size={24} />
 
                 <div>
-
                   <strong>
                     Fresh Delivery
                   </strong>
@@ -561,18 +450,13 @@ export default function ProductPage() {
                   <span>
                     Delivered with care to your door
                   </span>
-
                 </div>
-
               </div>
 
-
               <div>
-
                 <Leaf size={24} />
 
                 <div>
-
                   <strong>
                     Fresh & Local
                   </strong>
@@ -580,26 +464,14 @@ export default function ProductPage() {
                   <span>
                     Supporting trusted local growers
                   </span>
-
                 </div>
-
               </div>
-
-
             </div>
-
-
           </div>
-
         </div>
-
       </section>
 
-
       <Footer />
-
     </main>
-
   );
-
 }

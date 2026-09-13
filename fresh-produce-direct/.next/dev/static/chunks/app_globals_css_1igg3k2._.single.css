@@ -2,7 +2,13 @@
 @layer properties {
   @supports (((-webkit-hyphens: none)) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color: rgb(from red r g b)))) {
     *, :before, :after, ::backdrop {
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
       --tw-border-style: solid;
+      --tw-outline-style: solid;
     }
   }
 }
@@ -272,6 +278,14 @@
     visibility: visible;
   }
 
+  .absolute {
+    position: absolute;
+  }
+
+  .relative {
+    position: relative;
+  }
+
   .block {
     display: block;
   }
@@ -288,9 +302,18 @@
     flex-grow: 1;
   }
 
+  .transform {
+    transform: var(--tw-rotate-x, ) var(--tw-rotate-y, ) var(--tw-rotate-z, ) var(--tw-skew-x, ) var(--tw-skew-y, );
+  }
+
   .border {
     border-style: var(--tw-border-style);
     border-width: 1px;
+  }
+
+  .outline {
+    outline-style: var(--tw-outline-style);
+    outline-width: 1px;
   }
 }
 
@@ -433,7 +456,7 @@ img {
 
 .hero {
   background-color: #0000;
-  background-image: linear-gradient(90deg, #f9f7f0fa 0%, #f9f7f0eb 36%, #f9f7f026 62%, #f9f7f000 100%), url("https://images.unsplash.com/photo-1498579397066-22750a3cb424?auto=format&fit=crop&w=1800&q=90");
+  background-image: linear-gradient(90deg, #f9f7f0fa 0%, #f9f7f0eb 36%, #f9f7f026 62%, #f9f7f000 100%), url("/hero.jpeg");
   background-position: center;
   background-repeat: repeat, repeat;
   background-size: cover;
@@ -793,7 +816,7 @@ img {
 
 .growers-banner {
   background-color: #0000;
-  background-image: linear-gradient(90deg, #0f19138c, #0f1913b3), url("https://images.unsplash.com/photo-1416879595882-3373a0480b5b?auto=format&fit=crop&w=1800&q=90");
+  background-image: linear-gradient(90deg, #0f19138c, #0f1913b3), url("/last banner image.jpeg");
   background-position: center;
   background-repeat: repeat, repeat;
   background-size: cover;
@@ -1225,7 +1248,38 @@ img {
   }
 }
 
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false
+}
+
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false
+}
+
 @property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+
+@property --tw-outline-style {
   syntax: "*";
   inherits: false;
   initial-value: solid;
