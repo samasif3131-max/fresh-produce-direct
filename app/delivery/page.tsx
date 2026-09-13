@@ -21,48 +21,15 @@ import {
   CheckCircle2,
   ChevronDown,
   Mail,
-  Search,
 } from "lucide-react";
 
+import {
+  checkPostcodeDelivery,
+  formatPostcode,
+  type DeliveryCheckResult,
+} from "../lib/postcode";
+
 import styles from "./Delivery.module.css";
-
-
-/* =========================================
-   DELIVERY AREA CONFIGURATION
-========================================= */
-
-const deliveryAreas = [
-  "PE11",
-  "PE10",
-  "PE12",
-];
-
-
-/* =========================================
-   POSTCODE VALIDATION
-========================================= */
-
-function validateUKPostcode(postcode: string) {
-  const postcodeRegex =
-    /^[A-Z]{1,2}\d[A-Z\d]?\s?\d[A-Z]{2}$/i;
-
-  return postcodeRegex.test(postcode.trim());
-}
-
-
-function checkDeliveryArea(postcode: string) {
-  const cleanPostcode = postcode
-    .trim()
-    .toUpperCase()
-    .replace(/\s+/g, " ");
-
-  const area = cleanPostcode.split(" ")[0];
-
-  return deliveryAreas.some((deliveryArea) =>
-    area.startsWith(deliveryArea)
-  );
-}
-
 
 /* =========================================
    FAQ DATA
@@ -72,17 +39,17 @@ const faqs = [
   {
     question: "What areas do you deliver to?",
     answer:
-      "We currently deliver to Spalding, Donington and surrounding villages. Enter your postcode above to check whether your area is currently covered.",
+      "We currently deliver to selected areas around Spalding, Donington and surrounding villages. Enter your postcode above to check whether your area is currently covered.",
   },
   {
     question: "How much does delivery cost?",
     answer:
-      "Delivery charges are kept simple and transparent, with free delivery available on selected orders.",
+      "Delivery charges are simple and transparent. Your delivery area and any applicable delivery fee can be confirmed when your postcode is checked.",
   },
   {
     question: "What days do you deliver?",
     answer:
-      "We offer flexible delivery days throughout the week depending on your location and delivery schedule.",
+      "Delivery days depend on your delivery zone. Once your postcode is covered, available delivery days can be shown for your area.",
   },
   {
     question: "What happens if nobody is home?",
@@ -101,7 +68,6 @@ const faqs = [
   },
 ];
 
-
 /* =========================================
    REUSABLE POSTCODE CHECKER
 ========================================= */
@@ -112,47 +78,35 @@ function PostcodeChecker({
   compact?: boolean;
 }) {
   const [postcode, setPostcode] = useState("");
-  const [message, setMessage] = useState("");
-  const [status, setStatus] = useState<
-    "success" | "error" | ""
-  >("");
+  const [result, setResult] =
+    useState<DeliveryCheckResult | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleCheck = () => {
-    setMessage("");
-    setStatus("");
-
     if (!postcode.trim()) {
-      setStatus("error");
-      setMessage("Please enter your postcode.");
-      return;
-    }
-
-    if (!validateUKPostcode(postcode)) {
-      setStatus("error");
-      setMessage("Please enter a valid UK postcode.");
+      setResult({
+        serviceable: false,
+        reason: "INVALID_POSTCODE",
+      });
       return;
     }
 
     setLoading(true);
+    setResult(null);
 
     setTimeout(() => {
-      const available = checkDeliveryArea(postcode);
+      const deliveryResult = checkPostcodeDelivery(postcode);
 
-      if (available) {
-        setStatus("success");
-        setMessage(
-          "Great news! We deliver to your area."
-        );
-      } else {
-        setStatus("error");
-        setMessage(
-          "Sorry, we're not delivering to this postcode yet."
-        );
-      }
-
+      setResult(deliveryResult);
       setLoading(false);
     }, 700);
+  };
+
+  const handleChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setPostcode(event.target.value);
+    setResult(null);
   };
 
   return (
@@ -171,9 +125,7 @@ function PostcodeChecker({
             type="text"
             placeholder="Enter your postcode"
             value={postcode}
-            onChange={(event) =>
-              setPostcode(event.target.value)
-            }
+            onChange={handleChange}
             onKeyDown={(event) => {
               if (event.key === "Enter") {
                 handleCheck();
@@ -193,35 +145,61 @@ function PostcodeChecker({
         </button>
       </div>
 
-      {message && (
-        <div
-          className={
-            status === "success"
-              ? styles.successMessage
-              : styles.errorMessage
-          }
-          role="alert"
-        >
-          {status === "success" && (
-            <CheckCircle2 size={18} />
-          )}
+      {result && (
+        <>
+          {result.serviceable ? (
+            <div
+              className={styles.successMessage}
+              role="status"
+              aria-live="polite"
+            >
+              <CheckCircle2 size={18} />
 
-          {message}
-        </div>
+              <div>
+                <strong>
+                  Great news! We deliver to{" "}
+                  {result.postcode || formatPostcode(postcode)}
+                </strong>
+
+                {result.zone && (
+                  <span>
+                    Your delivery area: {result.zone.name}
+                    <br />
+                    Delivery days:{" "}
+                    {result.zone.deliveryDays.join(" & ")}
+                  </span>
+                )}
+              </div>
+            </div>
+          ) : (
+            <div
+              className={styles.errorMessage}
+              role="alert"
+              aria-live="assertive"
+            >
+              {result.reason === "INVALID_POSTCODE"
+                ? postcode.trim()
+                  ? "Please enter a valid UK postcode."
+                  : "Please enter your postcode."
+                : `Sorry, we're not delivering to ${
+                    result.postcode ||
+                    formatPostcode(postcode)
+                  } yet.`}
+            </div>
+          )}
+        </>
       )}
     </div>
   );
 }
-
 
 /* =========================================
    MAIN DELIVERY PAGE
 ========================================= */
 
 export default function DeliveryPage() {
-  const [openFAQ, setOpenFAQ] = useState<number | null>(
-    null
-  );
+  const [openFAQ, setOpenFAQ] =
+    useState<number | null>(null);
 
   const [email, setEmail] = useState("");
   const [newsletterMessage, setNewsletterMessage] =
@@ -235,7 +213,7 @@ export default function DeliveryPage() {
     const emailRegex =
       /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(email.trim())) {
       setNewsletterMessage(
         "Please enter a valid email address."
       );
@@ -264,9 +242,6 @@ export default function DeliveryPage() {
 
         <div className={styles.container}>
           <div className={styles.heroGrid}>
-
-            {/* LEFT CONTENT */}
-
             <div className={styles.heroContent}>
               <span className={styles.heroTag}>
                 LOCAL • FRESH • RELIABLE
@@ -280,6 +255,7 @@ export default function DeliveryPage() {
 
               <p>
                 Fresh produce. Delivered to your area.
+                <br />
                 On time, every time.
               </p>
 
@@ -290,13 +266,9 @@ export default function DeliveryPage() {
                 className={styles.heroCTA}
               >
                 Check If We Deliver To You
-
                 <ArrowRight size={19} />
               </a>
             </div>
-
-
-            {/* RIGHT IMAGE */}
 
             <div className={styles.heroVisual}>
               <div className={styles.heroImage}>
@@ -316,11 +288,9 @@ export default function DeliveryPage() {
                 <Leaf size={23} />
               </div>
             </div>
-
           </div>
         </div>
       </section>
-
 
       {/* =========================================
           BENEFITS BAR
@@ -329,60 +299,46 @@ export default function DeliveryPage() {
       <section className={styles.benefitsBar}>
         <div className={styles.container}>
           <div className={styles.benefitsGrid}>
-
             <div className={styles.benefitItem}>
               <Truck />
 
               <div>
                 <h3>Local Delivery</h3>
-
-                <p>
-                  Supporting Local Communities
-                </p>
+                <p>Supporting Local Communities</p>
               </div>
             </div>
-
 
             <div className={styles.benefitItem}>
               <CalendarDays />
 
               <div>
                 <h3>Flexible Delivery Days</h3>
-
-                <p>
-                  To Suit Your Routine
-                </p>
+                <p>To Suit Your Routine</p>
               </div>
             </div>
-
 
             <div className={styles.benefitItem}>
               <House />
 
               <div>
                 <h3>Leave Safe Options</h3>
-
                 <p>Available</p>
               </div>
             </div>
-
 
             <div className={styles.benefitItem}>
               <Leaf />
 
               <div>
                 <h3>Freshness Guaranteed</h3>
-
                 <p>
                   Picked, packed and delivered with care
                 </p>
               </div>
             </div>
-
           </div>
         </div>
       </section>
-
 
       {/* =========================================
           DELIVERY INFORMATION
@@ -397,7 +353,6 @@ export default function DeliveryPage() {
         </div>
 
         <div className={styles.container}>
-
           <div className={styles.sectionHeading}>
             <span>DELIVERY MADE SIMPLE</span>
 
@@ -409,11 +364,7 @@ export default function DeliveryPage() {
             </p>
           </div>
 
-
           <div className={styles.infoGrid}>
-
-            {/* CARD 1 */}
-
             <div className={styles.infoCard}>
               <div className={styles.infoIcon}>
                 <MapPin />
@@ -422,10 +373,10 @@ export default function DeliveryPage() {
               <h3>Delivery Areas</h3>
 
               <p>
-                We currently deliver to Spalding,
-                Donington and surrounding areas.
-                Check your postcode below to see if we
-                deliver to your area.
+                We currently deliver to selected areas
+                around Spalding, Donington and surrounding
+                villages. Check your postcode below to see
+                if we deliver to your area.
               </p>
 
               <a href="#delivery-coverage">
@@ -433,9 +384,6 @@ export default function DeliveryPage() {
                 <ArrowRight size={17} />
               </a>
             </div>
-
-
-            {/* CARD 2 */}
 
             <div className={styles.infoCard}>
               <div className={styles.infoIcon}>
@@ -446,8 +394,8 @@ export default function DeliveryPage() {
 
               <p>
                 We offer flexible delivery days throughout
-                the week, so you can choose a time that
-                works for you.
+                the week depending on your location and
+                delivery schedule.
               </p>
 
               <a href="#how-delivery-works">
@@ -455,9 +403,6 @@ export default function DeliveryPage() {
                 <ArrowRight size={17} />
               </a>
             </div>
-
-
-            {/* CARD 3 */}
 
             <div className={styles.infoCard}>
               <div className={styles.infoIcon}>
@@ -478,9 +423,6 @@ export default function DeliveryPage() {
               </a>
             </div>
 
-
-            {/* CARD 4 */}
-
             <div className={styles.infoCard}>
               <div className={styles.infoIcon}>
                 <House />
@@ -500,9 +442,6 @@ export default function DeliveryPage() {
               </a>
             </div>
 
-
-            {/* CARD 5 */}
-
             <div className={styles.infoCard}>
               <div className={styles.infoIcon}>
                 <Coins />
@@ -512,8 +451,8 @@ export default function DeliveryPage() {
 
               <p>
                 Our delivery charges are simple and
-                transparent, with free delivery on
-                selected orders.
+                transparent, with free delivery on selected
+                orders.
               </p>
 
               <a href="#delivery-faq">
@@ -521,9 +460,6 @@ export default function DeliveryPage() {
                 <ArrowRight size={17} />
               </a>
             </div>
-
-
-            {/* CARD 6 */}
 
             <div className={styles.infoCard}>
               <div className={styles.infoIcon}>
@@ -533,8 +469,8 @@ export default function DeliveryPage() {
               <h3>Need Help?</h3>
 
               <p>
-                Our friendly team is here to help with
-                any delivery questions.
+                Our friendly team is here to help with any
+                delivery questions.
               </p>
 
               <Link href="/contact">
@@ -542,11 +478,9 @@ export default function DeliveryPage() {
                 <ArrowRight size={17} />
               </Link>
             </div>
-
           </div>
         </div>
       </section>
-
 
       {/* =========================================
           DELIVERY COVERAGE
@@ -558,9 +492,6 @@ export default function DeliveryPage() {
       >
         <div className={styles.container}>
           <div className={styles.coverageGrid}>
-
-            {/* LEFT */}
-
             <div className={styles.coverageContent}>
               <span className={styles.lightTag}>
                 DELIVERY COVERAGE
@@ -573,8 +504,9 @@ export default function DeliveryPage() {
               </h2>
 
               <p>
-                We currently deliver to Spalding,
-                Donington and surrounding villages.
+                We currently deliver to selected areas
+                around Spalding, Donington and surrounding
+                villages.
               </p>
 
               <p>
@@ -593,13 +525,8 @@ export default function DeliveryPage() {
               </div>
             </div>
 
-
-            {/* RIGHT MAP */}
-
             <div className={styles.mapVisual}>
-
               <div className={styles.mapShape}>
-
                 <span className={styles.mapPinOne}>
                   Spalding
                 </span>
@@ -631,7 +558,6 @@ export default function DeliveryPage() {
                 <span className={styles.mapPinEight}>
                   Long Sutton
                 </span>
-
               </div>
 
               <div className={styles.coverageBadge}>
@@ -645,13 +571,10 @@ export default function DeliveryPage() {
 
                 <Truck size={26} />
               </div>
-
             </div>
-
           </div>
         </div>
       </section>
-
 
       {/* =========================================
           HOW DELIVERY WORKS
@@ -662,7 +585,6 @@ export default function DeliveryPage() {
         id="how-delivery-works"
       >
         <div className={styles.container}>
-
           <div className={styles.sectionHeading}>
             <span>FRESH FROM FARM TO DOOR</span>
 
@@ -674,13 +596,9 @@ export default function DeliveryPage() {
             </p>
           </div>
 
-
           <div className={styles.processGrid}>
-
             <div className={styles.processItem}>
-              <div className={styles.stepNumber}>
-                1
-              </div>
+              <div className={styles.stepNumber}>1</div>
 
               <div className={styles.processIcon}>
                 <ShoppingBasket />
@@ -694,16 +612,10 @@ export default function DeliveryPage() {
               </p>
             </div>
 
-
-            <ArrowRight
-              className={styles.processArrow}
-            />
-
+            <ArrowRight className={styles.processArrow} />
 
             <div className={styles.processItem}>
-              <div className={styles.stepNumber}>
-                2
-              </div>
+              <div className={styles.stepNumber}>2</div>
 
               <div className={styles.processIcon}>
                 <Package />
@@ -712,21 +624,15 @@ export default function DeliveryPage() {
               <h3>We Pick & Pack</h3>
 
               <p>
-                Our local growers pick and pack your
-                order fresh.
+                Our local growers pick and pack your order
+                fresh.
               </p>
             </div>
 
-
-            <ArrowRight
-              className={styles.processArrow}
-            />
-
+            <ArrowRight className={styles.processArrow} />
 
             <div className={styles.processItem}>
-              <div className={styles.stepNumber}>
-                3
-              </div>
+              <div className={styles.stepNumber}>3</div>
 
               <div className={styles.processIcon}>
                 <Truck />
@@ -740,16 +646,10 @@ export default function DeliveryPage() {
               </p>
             </div>
 
-
-            <ArrowRight
-              className={styles.processArrow}
-            />
-
+            <ArrowRight className={styles.processArrow} />
 
             <div className={styles.processItem}>
-              <div className={styles.stepNumber}>
-                4
-              </div>
+              <div className={styles.stepNumber}>4</div>
 
               <div className={styles.processIcon}>
                 <Leaf />
@@ -761,12 +661,9 @@ export default function DeliveryPage() {
                 Unpack, enjoy and feel the difference!
               </p>
             </div>
-
           </div>
-
         </div>
       </section>
-
 
       {/* =========================================
           FAQ
@@ -777,7 +674,6 @@ export default function DeliveryPage() {
         id="delivery-faq"
       >
         <div className={styles.container}>
-
           <div className={styles.sectionHeading}>
             <span>HELP & SUPPORT</span>
 
@@ -788,9 +684,7 @@ export default function DeliveryPage() {
             </p>
           </div>
 
-
           <div className={styles.faqGrid}>
-
             {faqs.map((faq, index) => (
               <div
                 className={styles.faqItem}
@@ -801,14 +695,10 @@ export default function DeliveryPage() {
                   className={styles.faqQuestion}
                   onClick={() =>
                     setOpenFAQ(
-                      openFAQ === index
-                        ? null
-                        : index
+                      openFAQ === index ? null : index
                     )
                   }
-                  aria-expanded={
-                    openFAQ === index
-                  }
+                  aria-expanded={openFAQ === index}
                 >
                   <span>{faq.question}</span>
 
@@ -830,26 +720,21 @@ export default function DeliveryPage() {
                 >
                   <p>{faq.answer}</p>
                 </div>
-
               </div>
             ))}
-
           </div>
-
         </div>
       </section>
-
 
       {/* =========================================
           WAITING LIST
       ========================================= */}
 
       <section className={styles.waitingSection}>
-        <div className={styles.waitingOverlay}></div>
+        <div className={styles.waitingOverlay} />
 
         <div className={styles.container}>
           <div className={styles.waitingGrid}>
-
             <div className={styles.waitingContent}>
               <span>STAY UPDATED</span>
 
@@ -862,7 +747,6 @@ export default function DeliveryPage() {
                 know when we expand.
               </p>
 
-
               <form
                 className={styles.waitingForm}
                 onSubmit={handleNewsletter}
@@ -874,16 +758,16 @@ export default function DeliveryPage() {
                     type="email"
                     placeholder="Enter your email address"
                     value={email}
-                    onChange={(event) =>
-                      setEmail(event.target.value)
-                    }
+                    onChange={(event) => {
+                      setEmail(event.target.value);
+                      setNewsletterMessage("");
+                    }}
                     aria-label="Email address"
                   />
                 </div>
 
                 <button type="submit">
                   Join Updates
-
                   <ArrowRight size={18} />
                 </button>
               </form>
@@ -893,9 +777,7 @@ export default function DeliveryPage() {
                   {newsletterMessage}
                 </p>
               )}
-
             </div>
-
 
             <div className={styles.waitingMessage}>
               More
@@ -904,11 +786,9 @@ export default function DeliveryPage() {
               <br />
               Healthier Futures
             </div>
-
           </div>
         </div>
       </section>
-
 
       <Footer />
     </main>

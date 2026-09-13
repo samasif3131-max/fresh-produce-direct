@@ -126,22 +126,24 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var _s = __turbopack_context__.k.signature(), _s1 = __turbopack_context__.k.signature();
 "use client";
 ;
-const CartContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"])(undefined);
+/* =========================================
+   CREATE CONTEXT
+========================================= */ const CartContext = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createContext"])(undefined);
 function CartProvider({ children }) {
     _s();
     const [cart, setCart] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    /* ===============================
+    /* =========================================
      ADD TO CART
-  =============================== */ const addToCart = (product)=>{
+  ========================================= */ const addToCart = (product)=>{
         setCart((currentCart)=>{
             const existingProduct = currentCart.find((item)=>item.name === product.name);
-            if (existingProduct) {
+            /* PRODUCT ALREADY EXISTS */ if (existingProduct) {
                 return currentCart.map((item)=>item.name === product.name ? {
                         ...item,
                         quantity: item.quantity + 1
                     } : item);
             }
-            return [
+            /* ADD NEW PRODUCT */ return [
                 ...currentCart,
                 {
                     ...product,
@@ -150,33 +152,35 @@ function CartProvider({ children }) {
             ];
         });
     };
-    /* ===============================
+    /* =========================================
      INCREASE QUANTITY
-  =============================== */ const increaseQuantity = (name)=>{
+  ========================================= */ const increaseQuantity = (name)=>{
         setCart((currentCart)=>currentCart.map((item)=>item.name === name ? {
                     ...item,
                     quantity: item.quantity + 1
                 } : item));
     };
-    /* ===============================
+    /* =========================================
      DECREASE QUANTITY
-  =============================== */ const decreaseQuantity = (name)=>{
+  ========================================= */ const decreaseQuantity = (name)=>{
         setCart((currentCart)=>currentCart.map((item)=>item.name === name ? {
                     ...item,
                     quantity: item.quantity - 1
                 } : item).filter((item)=>item.quantity > 0));
     };
-    /* ===============================
+    /* =========================================
      REMOVE PRODUCT
-  =============================== */ const removeFromCart = (name)=>{
+  ========================================= */ const removeFromCart = (name)=>{
         setCart((currentCart)=>currentCart.filter((item)=>item.name !== name));
     };
-    /* ===============================
+    /* =========================================
      CLEAR CART
-  =============================== */ const clearCart = ()=>{
+  ========================================= */ const clearCart = ()=>{
         setCart([]);
     };
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(CartContext.Provider, {
+    /* =========================================
+     PROVIDER
+  ========================================= */ return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(CartContext.Provider, {
         value: {
             cart,
             addToCart,
@@ -188,7 +192,7 @@ function CartProvider({ children }) {
         children: children
     }, void 0, false, {
         fileName: "[project]/context/CartContext.tsx",
-        lineNumber: 127,
+        lineNumber: 205,
         columnNumber: 5
     }, this);
 }

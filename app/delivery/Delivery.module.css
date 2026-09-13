@@ -10,7 +10,6 @@
   margin: 0 auto;
 }
 
-
 /* =========================================
    HERO
 ========================================= */
@@ -116,7 +115,6 @@
   margin: 7px 0 12px;
 }
 
-
 /* =========================================
    POSTCODE CHECKER
 ========================================= */
@@ -206,7 +204,7 @@
   align-items: center;
   gap: 10px;
   margin-top: 20px;
-  padding: 15px 22px;
+  padding: 15px 0;
   background: transparent;
   color: #245b37;
   font-weight: 800;
@@ -217,7 +215,6 @@
 .heroCTA:hover {
   gap: 16px;
 }
-
 
 /* =========================================
    BENEFITS
@@ -260,9 +257,8 @@
   line-height: 1.4;
 }
 
-
 /* =========================================
-   GENERAL SECTION
+   GENERAL SECTIONS
 ========================================= */
 
 .deliveryInfo,
@@ -290,7 +286,6 @@
   font-size: 16px;
   line-height: 1.7;
 }
-
 
 /* =========================================
    INFORMATION CARDS
@@ -366,15 +361,15 @@
   text-decoration: none;
   font-weight: 800;
   font-size: 14px;
+  transition: 0.25s ease;
 }
 
 .infoCard a:hover {
   gap: 13px;
 }
 
-
 /* =========================================
-   COVERAGE
+   DELIVERY COVERAGE
 ========================================= */
 
 .coverageSection {
@@ -420,20 +415,16 @@
   position: absolute;
   inset: 20px 0 20px 30px;
   border-radius: 46% 54% 48% 52% / 54% 43% 57% 46%;
-  background:
-    linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.75),
-      rgba(255, 255, 255, 0.35)
-    );
+  background: rgba(255, 255, 255, 0.6);
   border: 2px solid rgba(47, 122, 69, 0.2);
   box-shadow: inset 0 0 0 15px rgba(255, 255, 255, 0.3);
 }
 
-.mapShape::before,
-.mapShape::after {
+.mapShape::before {
   content: "";
   position: absolute;
+  inset: 0;
+  border-radius: inherit;
   background: repeating-linear-gradient(
     45deg,
     transparent,
@@ -441,8 +432,6 @@
     rgba(47, 122, 69, 0.07) 19px,
     transparent 20px
   );
-  inset: 0;
-  border-radius: inherit;
 }
 
 .mapShape span {
@@ -507,6 +496,7 @@
   color: white;
   border-radius: 20px;
   transform: rotate(-4deg);
+  box-shadow: 0 18px 35px rgba(23, 61, 50, 0.18);
 }
 
 .coverageBadge strong {
@@ -515,7 +505,6 @@
   line-height: 1.25;
   margin-bottom: 12px;
 }
-
 
 /* =========================================
    PROCESS
@@ -587,7 +576,6 @@
   color: #79a46d;
 }
 
-
 /* =========================================
    FAQ
 ========================================= */
@@ -639,13 +627,13 @@
 .faqAnswer {
   max-height: 0;
   overflow: hidden;
-  transition: 0.35s ease;
+  transition: max-height 0.35s ease;
 }
 
 .faqAnswerOpen {
   max-height: 300px;
   overflow: hidden;
-  transition: 0.35s ease;
+  transition: max-height 0.35s ease;
 }
 
 .faqAnswer p,
@@ -656,7 +644,6 @@
   line-height: 1.7;
   font-size: 14px;
 }
-
 
 /* =========================================
    WAITING LIST
@@ -738,6 +725,11 @@
   color: #173d32;
   font-weight: 800;
   cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.waitingForm button:hover {
+  transform: translateY(-2px);
 }
 
 .newsletterMessage {
@@ -753,7 +745,6 @@
   text-align: right;
   color: rgba(255, 255, 255, 0.9);
 }
-
 
 /* =========================================
    RESPONSIVE
@@ -788,11 +779,9 @@
   }
 }
 
-
 @media (max-width: 768px) {
-
   .container {
-    width: min(100% - 28px, 1180px);
+    width: min(calc(100% - 28px), 1180px);
   }
 
   .hero {
@@ -869,9 +858,7 @@
   }
 }
 
-
 @media (max-width: 520px) {
-
   .heroContent h1 {
     font-size: 38px;
   }

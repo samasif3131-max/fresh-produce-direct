@@ -2,6 +2,7 @@
 .Header-module__9fWxfa__header {
   z-index: 9999;
   background: #fff;
+  border-bottom: 1px solid #174d2d14;
   width: 100%;
   height: 92px;
   position: relative;
@@ -16,6 +17,7 @@
   margin: 0 auto;
   padding: 0 30px;
   display: flex;
+  position: relative;
 }
 
 .Header-module__9fWxfa__logo {
@@ -47,29 +49,43 @@
 .Header-module__9fWxfa__navigation a {
   color: #1e2c29;
   white-space: nowrap;
+  align-items: center;
+  height: 92px;
   font-size: 14px;
+  font-weight: 500;
   text-decoration: none;
   transition: color .3s;
+  display: flex;
   position: relative;
 }
 
 .Header-module__9fWxfa__navigation a:hover {
-  color: #245b37;
-}
-
-.Header-module__9fWxfa__navigation a:first-child {
   color: #174d2d;
-  font-weight: 600;
 }
 
-.Header-module__9fWxfa__navigation a:first-child:after {
+.Header-module__9fWxfa__navigation a:after {
   content: "";
   background: #245b37;
-  width: 34px;
+  width: 0;
   height: 2px;
+  transition: width .3s;
   position: absolute;
-  bottom: -13px;
-  left: 0;
+  bottom: 18px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.Header-module__9fWxfa__navigation a:hover:after {
+  width: 100%;
+}
+
+.Header-module__9fWxfa__activeLink {
+  color: #174d2d !important;
+  font-weight: 700 !important;
+}
+
+.Header-module__9fWxfa__activeLink:after {
+  width: 100% !important;
 }
 
 .Header-module__9fWxfa__headerIcons {
@@ -123,6 +139,57 @@
   position: absolute;
   top: -10px;
   right: -10px;
+}
+
+.Header-module__9fWxfa__searchDropdown {
+  z-index: 10000;
+  background: #fff;
+  border: 1px solid #e4e9e4;
+  border-radius: 14px;
+  align-items: center;
+  gap: 10px;
+  width: min(450px, 100vw - 40px);
+  padding: 12px;
+  display: flex;
+  position: absolute;
+  top: 105px;
+  right: 30px;
+  box-shadow: 0 15px 40px #14322329;
+}
+
+.Header-module__9fWxfa__searchDropdown svg {
+  color: #245b37;
+  flex-shrink: 0;
+}
+
+.Header-module__9fWxfa__searchDropdown input {
+  color: #1e2c29;
+  background: none;
+  border: none;
+  outline: none;
+  flex: 1;
+  min-width: 0;
+  font-size: 14px;
+}
+
+.Header-module__9fWxfa__searchDropdown input::placeholder {
+  color: #9aa39e;
+}
+
+.Header-module__9fWxfa__searchDropdown button {
+  color: #fff;
+  cursor: pointer;
+  background: #174d2d;
+  border: none;
+  border-radius: 25px;
+  padding: 10px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  transition: all .3s;
+}
+
+.Header-module__9fWxfa__searchDropdown button:hover {
+  background: #286b42;
 }
 
 .Header-module__9fWxfa__menuButton {
@@ -204,6 +271,14 @@
     display: flex;
   }
 
+  .Header-module__9fWxfa__searchDropdown {
+    width: auto;
+    position: fixed;
+    top: 86px;
+    left: 18px;
+    right: 18px;
+  }
+
   .Header-module__9fWxfa__mobileNavigation {
     opacity: 0;
     background: #fff;
@@ -233,12 +308,20 @@
     font-weight: 500;
     text-decoration: none;
     transition: all .3s;
+    position: relative;
   }
 
   .Header-module__9fWxfa__mobileNavigation a:hover {
     color: #245b37;
     background: #f5f8f5;
     padding-left: 32px;
+  }
+
+  .Header-module__9fWxfa__mobileActiveLink {
+    background: #f1f7f2;
+    border-left: 4px solid #245b37;
+    color: #174d2d !important;
+    font-weight: 700 !important;
   }
 }
 
@@ -268,6 +351,12 @@
 
   .Header-module__9fWxfa__mobileNavigation {
     top: 70px;
+  }
+
+  .Header-module__9fWxfa__searchDropdown {
+    top: 80px;
+    left: 12px;
+    right: 12px;
   }
 }
 

@@ -1,6 +1,10 @@
+"use client";
+
 import Link from "next/link";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import { useCart } from "../../context/CartContext";
+
 import {
   ArrowRight,
   Check,
@@ -9,7 +13,6 @@ import {
   MapPin,
   Package,
   ShoppingBasket,
-  Sprout,
   Tractor,
   Truck,
   Users,
@@ -18,8 +21,13 @@ import {
 
 import styles from "./OurBoxes.module.css";
 
+/* =========================================
+   BOXES DATA
+========================================= */
+
 const boxes = [
   {
+    name: "Mixed Veg Box",
     title: "Mixed Veg Box",
     description: "A fresh selection of seasonal vegetables.",
     features: [
@@ -27,12 +35,15 @@ const boxes = [
       "Great value",
       "Perfect for everyday meals",
     ],
-    price: "From £12.50",
+    price: "£12.50",
     popular: true,
     image:
       "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1000&q=85",
+    origin: "Fresh local produce",
+    unit: "1 produce box",
   },
   {
+    name: "Fruit Box",
     title: "Fruit Box",
     description: "A variety of fresh, seasonal fruits.",
     features: [
@@ -40,12 +51,15 @@ const boxes = [
       "Great value for healthy snacking",
       "Perfect for families",
     ],
-    price: "From £12.50",
+    price: "£12.50",
     popular: false,
     image:
       "https://images.unsplash.com/photo-1610832958506-aa56368176cf?auto=format&fit=crop&w=1000&q=85",
+    origin: "Fresh seasonal fruit",
+    unit: "1 produce box",
   },
   {
+    name: "Family Box",
     title: "Family Box",
     description: "A larger box perfect for families.",
     features: [
@@ -53,12 +67,15 @@ const boxes = [
       "Great value for families",
       "Everything you need for the week",
     ],
-    price: "From £20.00",
+    price: "£20.00",
     popular: false,
     image:
       "https://images.unsplash.com/photo-1518843875459-f738682238a6?auto=format&fit=crop&w=1000&q=85",
+    origin: "Fresh local produce",
+    unit: "1 family box",
   },
   {
+    name: "Essentials Box",
     title: "Essentials Box",
     description: "All the everyday favourites.",
     features: [
@@ -66,17 +83,26 @@ const boxes = [
       "Ideal for smaller households",
       "Great value",
     ],
-    price: "From £10.00",
+    price: "£10.00",
     popular: false,
     image:
       "https://images.unsplash.com/photo-1506976785307-8732e854ad03?auto=format&fit=crop&w=1000&q=85",
+    origin: "Fresh seasonal produce",
+    unit: "1 produce box",
   },
 ];
 
+/* =========================================
+   OUR BOXES PAGE
+========================================= */
+
 export default function OurBoxesPage() {
+  const { addToCart } = useCart();
+
   return (
     <main className={styles.ourBoxesPage}>
-<Header />
+      <Header />
+
       {/* =====================================
           HERO SECTION
       ===================================== */}
@@ -116,7 +142,6 @@ export default function OurBoxesPage() {
           </div>
         </div>
       </section>
-
 
       {/* =====================================
           FEATURES SECTION
@@ -173,7 +198,6 @@ export default function OurBoxesPage() {
         </div>
       </section>
 
-
       {/* =====================================
           CHOOSE YOUR BOX
       ===================================== */}
@@ -195,13 +219,12 @@ export default function OurBoxesPage() {
 
         </div>
 
-
         <div className={styles.ourBoxesGrid}>
 
           {boxes.map((box) => (
             <article
               className={styles.ourBoxCard}
-              key={box.title}
+              key={box.name}
             >
               <div className={styles.boxImage}>
 
@@ -218,7 +241,6 @@ export default function OurBoxesPage() {
 
               </div>
 
-
               <div className={styles.ourBoxCardContent}>
 
                 <h3>{box.title}</h3>
@@ -226,7 +248,6 @@ export default function OurBoxesPage() {
                 <p className={styles.boxDescription}>
                   {box.description}
                 </p>
-
 
                 <ul>
                   {box.features.map((feature) => (
@@ -237,12 +258,14 @@ export default function OurBoxesPage() {
                   ))}
                 </ul>
 
-
                 <div className={styles.boxCardBottom}>
 
                   <strong>{box.price}</strong>
 
-                  <button>
+                  <button
+                    type="button"
+                    onClick={() => addToCart(box)}
+                  >
                     <ShoppingBasket size={18} />
                     Add to Basket
                   </button>
@@ -250,13 +273,11 @@ export default function OurBoxesPage() {
                 </div>
 
               </div>
-
             </article>
           ))}
 
         </div>
       </section>
-
 
       {/* =====================================
           WHAT'S IN OUR BOXES
@@ -271,7 +292,6 @@ export default function OurBoxesPage() {
           />
         </div>
 
-
         <div className={styles.whatsInBoxContent}>
 
           <span>SEASONAL & FRESH</span>
@@ -284,15 +304,17 @@ export default function OurBoxesPage() {
             expect a great mix of high quality, locally sourced fruit and veg.
           </p>
 
-          <button>
+          <Link
+            href="/shop"
+            className={styles.seasonButton}
+          >
             See What&apos;s In Season
             <ArrowRight size={19} />
-          </button>
+          </Link>
 
         </div>
 
       </section>
-
 
       {/* =====================================
           CTA SECTION
@@ -306,7 +328,6 @@ export default function OurBoxesPage() {
             <Package size={34} />
           </div>
 
-
           <div>
             <h2>Need Something Specific?</h2>
 
@@ -314,7 +335,6 @@ export default function OurBoxesPage() {
               You can also add individual items to your order from our shop.
             </p>
           </div>
-
 
           <Link href="/shop">
             Visit Our Shop
@@ -324,7 +344,6 @@ export default function OurBoxesPage() {
         </div>
 
       </section>
-
 
       {/* =====================================
           FOOTER FEATURES
@@ -343,7 +362,6 @@ export default function OurBoxesPage() {
             </span>
           </div>
 
-
           <div>
             <ShieldCheck />
             <span>
@@ -352,7 +370,6 @@ export default function OurBoxesPage() {
               Ordering
             </span>
           </div>
-
 
           <div>
             <Users />
@@ -366,7 +383,8 @@ export default function OurBoxesPage() {
         </div>
 
       </section>
-<Footer />
+
+      <Footer />
     </main>
   );
 }

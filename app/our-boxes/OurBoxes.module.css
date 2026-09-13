@@ -23,10 +23,10 @@
   background:
     linear-gradient(
       90deg,
-      rgba(19, 53, 39, 0.92) 0%,
-      rgba(19, 53, 39, 0.78) 38%,
-      rgba(19, 53, 39, 0.3) 68%,
-      rgba(19, 53, 39, 0.05) 100%
+      rgba(249, 247, 240, 0.97) 0%,
+      rgba(249, 247, 240, 0.93) 40%,
+      rgba(249, 247, 240, 0.65) 62%,
+      rgba(249, 247, 240, 0.15) 100%
     ),
     url("https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=1800&q=90");
 
@@ -37,7 +37,7 @@
 .boxesHeroOverlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.05);
+  background: transparent;
 }
 
 .boxesHeroContainer {
@@ -52,21 +52,24 @@
 .boxesHeroContent {
   width: 100%;
   max-width: 650px;
-  color: white;
 }
 
 .heroSmallTag {
   display: inline-block;
   margin-bottom: 18px;
   padding: 8px 16px;
-  border: 1px solid rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(23, 77, 45, 0.3);
   border-radius: 30px;
+  color: #174d2d;
+  background: rgba(255, 255, 255, 0.45);
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 2px;
 }
 
 .boxesHero h1 {
+  margin: 0;
+  color: #18372f;
   font-size: clamp(52px, 6vw, 78px);
   line-height: 1;
   font-weight: 700;
@@ -75,17 +78,18 @@
 
 .boxesHero h2 {
   margin-top: 20px;
+  color: #174d2d;
   font-size: clamp(22px, 2.5vw, 32px);
   line-height: 1.25;
-  font-weight: 500;
+  font-weight: 600;
 }
 
 .boxesHero p {
   margin-top: 20px;
   max-width: 610px;
+  color: #3d574b;
   font-size: 17px;
   line-height: 1.7;
-  color: rgba(255, 255, 255, 0.9);
 }
 
 .boxesHeroButton {
@@ -93,10 +97,9 @@
   min-height: 52px;
   margin-top: 28px;
   padding: 0 24px;
-  border: none;
   border-radius: 30px;
-  background: #ffffff;
-  color: #174d2d;
+  background: #174d2d;
+  color: #ffffff;
 
   display: inline-flex;
   align-items: center;
@@ -104,12 +107,14 @@
 
   font-size: 15px;
   font-weight: 700;
+  text-decoration: none;
+
   transition: 0.3s ease;
 }
 
 .boxesHeroButton:hover {
   transform: translateY(-3px);
-  background: #f3f1ec;
+  background: #286b42;
 }
 
 /* =========================================
@@ -269,7 +274,9 @@
 
 .ourBoxCard ul {
   margin-top: 18px;
+  padding: 0;
   list-style: none;
+
   display: flex;
   flex-direction: column;
   gap: 11px;
@@ -319,6 +326,7 @@
 
   font-size: 14px;
   font-weight: 700;
+  cursor: pointer;
   transition: 0.3s ease;
 }
 
@@ -379,26 +387,27 @@
   line-height: 1.75;
 }
 
-.whatsInBoxContent button {
+.seasonButton {
   width: fit-content;
   min-height: 50px;
   margin-top: 28px;
   padding: 0 22px;
-  border: none;
   border-radius: 30px;
   background: #174d2d;
   color: white;
 
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 12px;
 
   font-size: 14px;
   font-weight: 700;
+  text-decoration: none;
+
   transition: 0.3s ease;
 }
 
-.whatsInBoxContent button:hover {
+.seasonButton:hover {
   background: #286b42;
   transform: translateY(-2px);
 }
@@ -460,6 +469,7 @@
 
   font-size: 14px;
   font-weight: 700;
+  text-decoration: none;
   transition: 0.3s ease;
 }
 
@@ -510,6 +520,7 @@
 ========================================= */
 
 @media (max-width: 1100px) {
+
   .boxesFeaturesContainer {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -522,6 +533,7 @@
   .whatsInBoxContent {
     padding: 55px 45px;
   }
+
 }
 
 /* =========================================
@@ -529,6 +541,7 @@
 ========================================= */
 
 @media (max-width: 768px) {
+
   .boxesHero {
     min-height: 620px;
     background-position: 65% center;
@@ -620,6 +633,7 @@
   .boxesFooterContainer > div {
     justify-content: flex-start;
   }
+
 }
 
 /* =========================================
@@ -627,6 +641,7 @@
 ========================================= */
 
 @media (max-width: 420px) {
+
   .boxesHero h1 {
     font-size: 44px;
   }
@@ -655,4 +670,5 @@
   .whatsInBoxContent h2 {
     font-size: 38px;
   }
+
 }
